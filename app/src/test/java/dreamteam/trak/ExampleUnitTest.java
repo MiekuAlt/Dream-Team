@@ -1,4 +1,4 @@
-package com.example.nathan.testapp;
+package dreamteam.trak;
 
 import org.junit.Test;
 

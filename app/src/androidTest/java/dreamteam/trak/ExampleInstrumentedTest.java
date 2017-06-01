@@ -1,4 +1,4 @@
-package com.example.nathan.testapp;
+package dreamteam.trak;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.nathan.testapp", appContext.getPackageName());
+        assertEquals("dreamteam.trak", appContext.getPackageName());
     }
 }
