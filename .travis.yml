@@ -14,7 +14,7 @@ android:
     # specify the image here
 
 script:
-    - ./gradlew build #connectedCheck
+    - ./gradlew build --stacktrace #connectedCheck
 
 before_install:
     - chmod +x gradlew
