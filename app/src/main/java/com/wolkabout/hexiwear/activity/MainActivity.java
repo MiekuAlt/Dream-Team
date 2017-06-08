@@ -38,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wolkabout.hexiwear.R;
+import com.wolkabout.hexiwear.TempNav;
 import com.wolkabout.hexiwear.adapter.DeviceListAdapter;
 import com.wolkabout.hexiwear.model.BluetoothDeviceWrapper;
 import com.wolkabout.hexiwear.service.BluetoothService;
@@ -290,4 +291,13 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             }
         });
     }
+
+    // **************************************************************************
+
+    // New code for the temp navigation
+    public void goTempNav(View view) {
+        Intent intent = new Intent(this, TempNav.class);
+        startActivity(intent);
+    }
+
 }

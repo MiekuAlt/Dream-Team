@@ -38,6 +38,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.wolkabout.hexiwear.R;
+import com.wolkabout.hexiwear.TempNav;
 import com.wolkabout.hexiwear.model.Characteristic;
 import com.wolkabout.hexiwear.model.HexiwearDevice;
 import com.wolkabout.hexiwear.model.Mode;
@@ -389,4 +390,12 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
         super.onBackPressed();
     }
 
+
+    // **************************************************************************
+
+    // New code for the temp navigation
+    public void goTempNav(View view) {
+        Intent intent = new Intent(this, TempNav.class);
+        startActivity(intent);
+    }
 }

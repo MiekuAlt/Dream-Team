@@ -47,7 +47,7 @@
             android:label="@string/registration_activity_title"
             android:screenOrientation="portrait"
             android:theme="@style/Blues"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.MainActivity_"
             android:label="@string/discovery_available_devices"
@@ -77,8 +77,8 @@
         <activity
             android:name=".activity.PasswordChangeActivity_"
             android:label="@string/change_password_activity_tile"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
 
         <service
             android:name=".service.BluetoothService_"
@@ -90,7 +90,11 @@
             android:name=".service.NotificationService_"
             android:exported="false" />
 
-
+        <activity android:name=".TempNav" />
+        <activity android:name=".MapActivity" />
+        <activity android:name=".CommActivity" />
+        <activity android:name=".StepCountActivity" />
+        <activity android:name=".HeartRateActivity"></activity>
     </application>
 
 </manifest>
