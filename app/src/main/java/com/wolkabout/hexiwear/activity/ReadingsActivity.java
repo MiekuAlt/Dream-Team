@@ -37,6 +37,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.TempNav;
 import com.wolkabout.hexiwear.model.Characteristic;
@@ -68,6 +70,8 @@ import java.util.Map;
 @EActivity(R.layout.activity_readings)
 @OptionsMenu(R.menu.menu_readings)
 public class ReadingsActivity extends AppCompatActivity implements ServiceConnection {
+
+    DatabaseReference databaseHeartRate;
 
     private static final String TAG = ReadingsActivity.class.getSimpleName();
 
@@ -263,6 +267,9 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
     void onDataAvailable(Intent intent) {
         progressBar.setVisibility(View.INVISIBLE);
 
+        databaseHeartRate = FirebaseDatabase.getInstance().getReference("HeartRate");
+        HeartRate heartRate = new HeartRate("");
+
         final String uuid = intent.getStringExtra(BluetoothService.READING_TYPE);
         final String data = intent.getStringExtra(BluetoothService.STRING_DATA);
 
@@ -294,6 +301,9 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
                 break;
             case LIGHT:
                 readingLight.setValue(data);
+                heartRate.setHeartRate(data);
+                String id = databaseHeartRate.push().getKey();
+                databaseHeartRate.child(id).setValue(heartRate);
                 break;
             case STEPS:
                 readingSteps.setValue(data);
