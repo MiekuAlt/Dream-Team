@@ -72,6 +72,7 @@ import java.util.Map;
 public class ReadingsActivity extends AppCompatActivity implements ServiceConnection {
 
     DatabaseReference databaseHeartRate;
+    DatabaseReference databaseStepCount;
 
     private static final String TAG = ReadingsActivity.class.getSimpleName();
 
@@ -268,7 +269,9 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
         progressBar.setVisibility(View.INVISIBLE);
 
         databaseHeartRate = FirebaseDatabase.getInstance().getReference("HeartRate");
+        databaseStepCount = FirebaseDatabase.getInstance().getReference("StepCount");
         HeartRate heartRate = new HeartRate("");
+        StepCount stepCount = new StepCount("");
 
         final String uuid = intent.getStringExtra(BluetoothService.READING_TYPE);
         final String data = intent.getStringExtra(BluetoothService.STRING_DATA);
@@ -298,15 +301,18 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
                 break;
             case HEARTRATE:
                 readingHeartRate.setValue(data);
+                heartRate.setHeartRate(data);
+                String heartId = databaseHeartRate.push().getKey();
+                databaseHeartRate.child(heartId).setValue(heartRate);
                 break;
             case LIGHT:
                 readingLight.setValue(data);
-                heartRate.setHeartRate(data);
-                String id = databaseHeartRate.push().getKey();
-                databaseHeartRate.child(id).setValue(heartRate);
                 break;
             case STEPS:
                 readingSteps.setValue(data);
+                stepCount.setStepCount(data);
+                String stepId = databaseStepCount.push().getKey();
+                databaseStepCount.child(stepId).setValue(stepCount);
                 break;
             case CALORIES:
                 readingCalories.setValue(data);

@@ -5,4 +5,11 @@ package com.wolkabout.hexiwear.activity;
  */
 
 class StepCount {
+    public String stepCount;
+    public StepCount(String stepCount){
+        this.stepCount = stepCount;
+    }
+    public void setStepCount(String setpCount){
+        this.stepCount = setpCount;
+    }
 }
