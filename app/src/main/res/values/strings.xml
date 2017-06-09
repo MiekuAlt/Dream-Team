@@ -161,4 +161,9 @@
     <string name="change_password_mismatch_error">Please enter the same new password and confirm new password.</string>
     <string name="change_password_old_invalid">Please enter a valid old password and try again.</string>
 
+    <!--CHAT-->
+    <string name="chat">Chat</string>
+    <string name="send">SEND</string>
+    <string name="hint">Enter message</string>
+
 </resources>

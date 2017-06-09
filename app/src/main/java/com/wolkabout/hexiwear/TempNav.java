@@ -21,8 +21,8 @@ public class TempNav extends AppCompatActivity {
         Intent intent = new Intent(this, HeartRateActivity.class);
         startActivity(intent);
     }
-    public void goCommunications(View view) {
-        Intent intent = new Intent(this, CommActivity.class);
+    public void goChat(View view) {
+        Intent intent = new Intent(this, ChatFragment.class);
         startActivity(intent);
     }
     public void goMap(View view) {
