@@ -92,7 +92,6 @@
 
         <activity android:name=".TempNav" />
         <activity android:name=".MapActivity" />
-        <activity android:name=".CommActivity" />
         <activity android:name=".StepCountActivity" />
         <activity android:name=".HeartRateActivity"></activity>
     </application>
