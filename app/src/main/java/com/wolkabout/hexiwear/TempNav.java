@@ -22,11 +22,18 @@ public class TempNav extends AppCompatActivity {
         startActivity(intent);
     }
     public void goChat(View view) {
-        Intent intent = new Intent(this, ChatFragment.class);
-        startActivity(intent);
+        getSupportFragmentManager().
+                beginTransaction().add(R.id.fragment_container, new ChatFragment()).commit();
     }
     public void goMap(View view) {
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
+    }
+
+    //may not need this
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        getFragmentManager().popBackStack();
     }
 }
