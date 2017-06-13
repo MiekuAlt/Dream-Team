@@ -59,6 +59,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "760312144821-qu8v9nau09pm246j7apsdhhu7ta7kq2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wolkabout.hexiwear",
+            "certificate_hash": "c96e860c6af405c3fb71c40efec37bb0795abfd2"
+          }
+        },
+        {
           "client_id": "760312144821-suaa15emn98v44n0bi6pjfcet1mvij0u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

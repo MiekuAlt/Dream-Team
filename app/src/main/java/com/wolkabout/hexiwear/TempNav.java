@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.wolkabout.hexiwear.activity.MapsActivity;
+
 public class TempNav extends AppCompatActivity {
 
     @Override
@@ -26,7 +28,7 @@ public class TempNav extends AppCompatActivity {
                 beginTransaction().add(R.id.fragment_container, new ChatFragment()).commit();
     }
     public void goMap(View view) {
-        Intent intent = new Intent(this, MapActivity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
 

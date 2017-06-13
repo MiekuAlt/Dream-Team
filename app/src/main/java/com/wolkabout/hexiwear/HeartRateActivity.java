@@ -1,6 +1,7 @@
 package com.wolkabout.hexiwear;
 
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -11,7 +12,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wolkabout.hexiwear.activity.HeartRate;
 
+
 public class HeartRateActivity extends AppCompatActivity {
+    TextView heartText;
 
     DatabaseReference databaseHeartRate;
 
@@ -20,8 +23,13 @@ public class HeartRateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart_rate);
 
+<<<<<<< HEAD
         // Initializing the database
         databaseHeartRate = FirebaseDatabase.getInstance().getReference("HeartRate");
+=======
+
+        databaseStepCount = FirebaseDatabase.getInstance().getReference("HeartRate");
+>>>>>>> origin/iteration-1-bluetooth
     }
 
     @Override
@@ -48,6 +56,7 @@ public class HeartRateActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
     }
 
 }
