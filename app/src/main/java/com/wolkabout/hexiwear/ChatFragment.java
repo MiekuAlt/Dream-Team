@@ -30,28 +30,57 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.List;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ChatFragment extends Fragment {
 
-    private ListView mConversationView;
     private EditText mToSendEditText;
     private Button mSendMessageButton;
 
+    DatabaseReference messageDatabase;
+
     // Used in conjunction with the list view to show messages
+    private ListView mConversationView;
     private ArrayAdapter<String> mConversationArrayAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        messageDatabase = FirebaseDatabase.getInstance().getReference("messages");
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
         setupChat();
+
+        messageDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot data) {
+
+                mConversationArrayAdapter.clear();
+
+                for (DataSnapshot messageSnapshot : data.getChildren()) {
+                    String msg = messageSnapshot.getValue(String.class);
+                    mConversationArrayAdapter.add("Me: " + msg);
+                }
+
+                mConversationView.setAdapter(mConversationArrayAdapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -69,7 +98,7 @@ public class ChatFragment extends Fragment {
 
     private void setupChat() {
         mConversationArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.message);
-        mConversationView.setAdapter(mConversationArrayAdapter);
+        //mConversationView.setAdapter(mConversationArrayAdapter);
 
         mSendMessageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -88,7 +117,8 @@ public class ChatFragment extends Fragment {
 
     private void sendMessage(String msg) {
         if (msg.length() > 0) {
-            mConversationArrayAdapter.add("Me: " + msg);
+            String id = messageDatabase.push().getKey();
+            messageDatabase.child(id).setValue(msg);
             mToSendEditText.setText("");
         }
     }

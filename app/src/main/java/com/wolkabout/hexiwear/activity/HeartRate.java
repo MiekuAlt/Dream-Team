@@ -6,10 +6,12 @@ package com.wolkabout.hexiwear.activity;
 
 public class HeartRate {
     public String heartRate;
+    public HeartRate() {}
     public HeartRate(String heartRate){
         this.heartRate = heartRate;
     }
     public void setHeartRate(String heartRate){
         this.heartRate = heartRate;
     }
+    public String getHeartRate() {return heartRate; }
 }
