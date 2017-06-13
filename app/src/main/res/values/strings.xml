@@ -165,5 +165,6 @@
     <string name="chat">Chat</string>
     <string name="send">SEND</string>
     <string name="hint">Enter message</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
