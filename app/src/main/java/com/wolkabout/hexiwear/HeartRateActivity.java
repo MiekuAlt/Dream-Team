@@ -22,14 +22,10 @@ public class HeartRateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart_rate);
-
-<<<<<<< HEAD
+        
         // Initializing the database
         databaseHeartRate = FirebaseDatabase.getInstance().getReference("HeartRate");
-=======
 
-        databaseStepCount = FirebaseDatabase.getInstance().getReference("HeartRate");
->>>>>>> origin/iteration-1-bluetooth
     }
 
     @Override
