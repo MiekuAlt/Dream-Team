@@ -13,27 +13,30 @@ import com.wolkabout.hexiwear.activity.HeartRate;
 
 public class HeartRateActivity extends AppCompatActivity {
 
-    DatabaseReference databaseStepCount;
+    DatabaseReference databaseHeartRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart_rate);
 
-        databaseStepCount = FirebaseDatabase.getInstance().getReference("HeartRate");
+        // Initializing the database
+        databaseHeartRate = FirebaseDatabase.getInstance().getReference("HeartRate");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        databaseStepCount.addValueEventListener(new ValueEventListener() {
+        databaseHeartRate.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                // Grabbing the data from Firebase
                 dataSnapshot.getChildren();
                 HeartRate heartRate = dataSnapshot.getValue(HeartRate.class);
 
+                // Posting the data to appear on the GUI
                 TextView textView = (TextView) findViewById(R.id.heartRateDisp);
                 String output = heartRate.getHeartRate();
                 textView.setText(output);

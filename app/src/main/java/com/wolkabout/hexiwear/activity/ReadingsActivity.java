@@ -302,8 +302,6 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
             case HEARTRATE:
                 readingHeartRate.setValue(data);
                 heartRate.setHeartRate(data);
-                //String heartId = databaseHeartRate.push().getKey();
-                //databaseHeartRate.child(heartId).setValue(heartRate);
                 databaseHeartRate.setValue(heartRate);
                 break;
             case LIGHT:
@@ -312,8 +310,6 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
             case STEPS:
                 readingSteps.setValue(data);
                 stepCount.setStepCount(data);
-                //String stepId = databaseStepCount.push().getKey();
-                //databaseStepCount.child(stepId).setValue(stepCount);
                 databaseStepCount.setValue(stepCount);
                 break;
             case CALORIES:

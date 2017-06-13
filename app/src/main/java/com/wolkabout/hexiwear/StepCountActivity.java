@@ -25,6 +25,7 @@ public class StepCountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_count);
 
+        // Initializing the database
         databaseStepCount = FirebaseDatabase.getInstance().getReference("StepCount");
 
     } // end of onCreate method
@@ -37,9 +38,11 @@ public class StepCountActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                // Grabbing the data from Firebase
                 dataSnapshot.getChildren();
                 StepCount stepCount = dataSnapshot.getValue(StepCount.class);
 
+                // Posting the data to appear on the GUI
                 TextView textView = (TextView) findViewById(R.id.numStepsDisp);
                 String output = stepCount.getStepCount();
                 textView.setText(output);
