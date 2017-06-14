@@ -54,5 +54,4 @@ public class HeartRateActivity extends AppCompatActivity {
         });
 
     }
-
 }

@@ -31,6 +31,10 @@ public class TempNav extends AppCompatActivity {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
+    public void goRange(View view) {
+        Intent intent = new Intent(this, SetRanges.class);
+        startActivity(intent);
+    }
 
     //may not need this
     @Override
