@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wolkabout.hexiwear.activity.HeartRange;
+import com.wolkabout.hexiwear.activity.MinHeartRange;
 
 import static com.wolkabout.hexiwear.R.layout.activity_set_range;
 
@@ -37,52 +37,14 @@ public class SetRanges extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        databaseMinHeartRange.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                // Grabbing the data from Firebase
-                dataSnapshot.getChildren();
-                HeartRange heartRange = dataSnapshot.getValue(HeartRange.class);
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-        databaseMaxHeartRange.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                // Grabbing the data from Firebase
-                dataSnapshot.getChildren();
-                HeartRange heartRange = dataSnapshot.getValue(HeartRange.class);
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
-
-    }
     public void changeHeart(View view){
         EditText editText = (EditText) findViewById(R.id.hRange);
         String changeMinHeart= editText.getText().toString();
-        databaseMinHeartRange.child("minheartRange").setValue(changeMinHeart);
+        databaseMinHeartRange.child("minHeartRange").setValue(changeMinHeart);
 
         EditText editText2 = (EditText) findViewById(R.id.hMaxRange);
         String changeMaxHeart= editText2.getText().toString();
-        databaseMaxHeartRange.child("maxheartRange").setValue(changeMaxHeart);
+        databaseMaxHeartRange.child("maxHeartRange").setValue(changeMaxHeart);
 
         TextView textView = (TextView) findViewById(R.id.heartRangeDisp);
         textView.setText("Values Changed");
