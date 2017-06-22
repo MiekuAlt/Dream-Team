@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "760312144821",
+    "firebase_url": "https://trak-92253.firebaseio.com",
+    "project_id": "trak-92253",
+    "storage_bucket": "trak-92253.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760312144821:android:05919a855dfed81c",
+        "android_client_info": {
+          "package_name": "dreamteam.trak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760312144821-6mq372sitgou2im2h8itqnn4orme0ht3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dreamteam.trak",
+            "certificate_hash": "cc6bd05057c1d9f99cd0f459883e938336e1e485"
+          }
+        },
+        {
+          "client_id": "760312144821-6r9821c088q357ejk4ip4f0tknfefoih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4oPoEf0e6eruwn_zu9y5XkQLaf-8O9hI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760312144821-6r9821c088q357ejk4ip4f0tknfefoih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760312144821:android:647a0ea43110a502",
+        "android_client_info": {
+          "package_name": "com.wolkabout.hexiwear"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760312144821-qu8v9nau09pm246j7apsdhhu7ta7kq2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wolkabout.hexiwear",
+            "certificate_hash": "c96e860c6af405c3fb71c40efec37bb0795abfd2"
+          }
+        },
+        {
+          "client_id": "760312144821-suaa15emn98v44n0bi6pjfcet1mvij0u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wolkabout.hexiwear",
+            "certificate_hash": "8d4c4b91d05889cdd87d5482a80d61816a157f3d"
+          }
+        },
+        {
+          "client_id": "760312144821-6r9821c088q357ejk4ip4f0tknfefoih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4oPoEf0e6eruwn_zu9y5XkQLaf-8O9hI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760312144821-6r9821c088q357ejk4ip4f0tknfefoih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
