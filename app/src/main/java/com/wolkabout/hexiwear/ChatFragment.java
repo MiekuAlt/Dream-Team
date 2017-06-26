@@ -16,12 +16,9 @@
 
 package com.wolkabout.hexiwear;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBar;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +27,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ChatFragment extends Fragment {
+
+    Globals g = Globals.getInstance();
 
     private EditText mToSendEditText;
     private Button mSendMessageButton;
@@ -71,7 +69,7 @@ public class ChatFragment extends Fragment {
 
                 for (DataSnapshot messageSnapshot : data.getChildren()) {
                     String msg = messageSnapshot.getValue(String.class);
-                    mConversationArrayAdapter.add("Me: " + msg);
+                    mConversationArrayAdapter.add(msg);
                 }
 
                 mConversationView.setAdapter(mConversationArrayAdapter);
@@ -118,7 +116,12 @@ public class ChatFragment extends Fragment {
     private void sendMessage(String msg) {
         if (msg.length() > 0) {
             String id = messageDatabase.push().getKey();
-            messageDatabase.child(id).setValue(msg);
+            if(g.isCoach()) {
+                messageDatabase.child(id).setValue("Coach:  " + msg);
+            } else {
+                messageDatabase.child(id).setValue("Athlete: " + msg);
+            }
+
             mToSendEditText.setText("");
         }
     }
