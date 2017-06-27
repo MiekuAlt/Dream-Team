@@ -18,7 +18,7 @@ import android.util.Log;
 public class GPS_Service extends Service {
 
     private static final String TAG = "GPS_Service";
-    private final int GPS_time = 3;
+    private final int GPS_time_in_milliseconds = 5000;
     private LocationListener listener;
     private LocationManager locationManager;
 
@@ -63,7 +63,7 @@ public class GPS_Service extends Service {
         locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 
         //noinspection MissingPermission
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0,listener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,GPS_time_in_milliseconds,0,listener);
 
     }
 

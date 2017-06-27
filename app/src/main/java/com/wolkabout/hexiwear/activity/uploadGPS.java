@@ -58,7 +58,9 @@ public class uploadGPS extends AppCompatActivity {
                     average = sum/nums.size();
                     Coordinates data = new Coordinates(coordinates[0], coordinates[1], Double.toString(average));
                     String id = databaseCoordinates.push().getKey();
-                    databaseCoordinates.child(id).setValue(data);
+                    //databaseCoordinates.child(id).setValue(data);
+                    databaseCoordinates.setValue(data);
+
 
                     textViewLongitude.setText(coordinates[0]);
                     textViewLatitude.setText(coordinates[1]);

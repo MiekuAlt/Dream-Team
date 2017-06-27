@@ -1,5 +1,6 @@
 package com.wolkabout.hexiwear.activity;
 
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -9,11 +10,18 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wolkabout.hexiwear.R;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("Coordinates");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng halifax = new LatLng(44.651070, -63.582687);
         mMap.addMarker(new MarkerOptions().position(halifax).title("Marker in Halifax"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(halifax));
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Coordinates coordinates = dataSnapshot.getValue(Coordinates.class);
+                mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()));
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
     }
 }
