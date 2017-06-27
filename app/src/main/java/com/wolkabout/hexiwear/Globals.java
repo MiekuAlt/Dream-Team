@@ -1,58 +1,49 @@
 package com.wolkabout.hexiwear;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 /**
- * Created by Michael on 6/26/2017.
- *
- * This is a singleton design pattern
+ * Created by Michael on 6/27/2017.
  */
 
 public class Globals {
-    private static Globals instance;
+    private static SharedPreferences mSharedPref;
 
+    private Globals() {}
 
-
-    private static boolean initialized;
-    private static boolean coach;
-
-    private Globals() {
-        loadData();
+    public static void init(Context context)
+    {
+        if(mSharedPref == null)
+            mSharedPref = context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
     }
 
-    public void updateData(boolean initialized, boolean coach) {
-        Globals.initialized = initialized;
-        Globals.coach = coach;
+    public static boolean read(String key, boolean defValue) {
+        return mSharedPref.getBoolean(key, defValue);
+    }
 
-        saveData();
+    public static void write(String key, boolean value) {
+        SharedPreferences.Editor prefsEditor = mSharedPref.edit();
+        prefsEditor.putBoolean(key, value);
+        prefsEditor.commit();
     }
-    private static void setInitialized (boolean value) {
-        Globals.initialized = value;
+
+    public static void setInitialized (boolean value) {
+
+        write("init", value);
     }
-    private static void setCoach (boolean value) {
-        Globals.coach = value;
+    public static void setCoach (boolean value) {
+
+        write("coach", value);
     }
 
     public static boolean isInitialized () {
-        return initialized;
+
+        return read("init", false);
     }
     public static boolean isCoach () {
-        return coach;
+
+        return read("coach", false);
     }
-
-    // Ensuring that there is only one
-    public static synchronized Globals getInstance() {
-        if(instance == null) {
-            instance = new Globals();
-        }
-        return instance;
-    }
-
-    // This saves data to the device
-    private void saveData() {
-
-    }
-    // This loads the saved data to the singleton
-    private void loadData() {
-
-    }
-
-} // end of the Globals class
+}

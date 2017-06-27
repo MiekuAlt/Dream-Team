@@ -37,6 +37,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wolkabout.hexiwear.ChooseUserActivity;
+import com.wolkabout.hexiwear.Globals;
 import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.TempNav;
 import com.wolkabout.hexiwear.adapter.DeviceListAdapter;
@@ -205,6 +207,13 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     @Override
     protected void onResume() {
         super.onResume();
+
+        Globals.init(getApplicationContext()); // Initializing the singleton
+        // Opening the user type select screen if it has not been initialized yet
+        if(!Globals.isInitialized()) {
+            Intent intent = new Intent(this, ChooseUserActivity.class);
+            startActivity(intent);
+        }
 
         if (adapter == null) {
             return;

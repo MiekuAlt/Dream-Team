@@ -36,8 +36,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ChatFragment extends Fragment {
 
-    Globals g = Globals.getInstance();
-
     private EditText mToSendEditText;
     private Button mSendMessageButton;
 
@@ -116,7 +114,7 @@ public class ChatFragment extends Fragment {
     private void sendMessage(String msg) {
         if (msg.length() > 0) {
             String id = messageDatabase.push().getKey();
-            if(g.isCoach()) {
+            if(Globals.isCoach()) {
                 messageDatabase.child(id).setValue("Coach:  " + msg);
             } else {
                 messageDatabase.child(id).setValue("Athlete: " + msg);
