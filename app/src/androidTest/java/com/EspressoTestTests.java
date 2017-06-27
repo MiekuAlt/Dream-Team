@@ -37,7 +37,9 @@ public class EspressoTestTests {
     @Test
     public void opensActivity() { //checks if step counter activity is opened when corresponding button clicked
         onView(withId(R.id.stepCountBut)).perform(click());
-        intended(hasComponent(StepCountActivity.class.getName()));
+        //intended(hasComponent(StepCountActivity.class.getName()));
+        //should fail
+        intended(hasComponent(MainActivity.class.getName()));
     }
 
     @Test
