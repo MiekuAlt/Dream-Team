@@ -1,5 +1,6 @@
 package com.wolkabout.hexiwear;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -42,6 +43,19 @@ public class ChooseUserActivity extends AppCompatActivity {
         Globals.setInitialized(true);
         Globals.setCoach(radioCoach.isChecked());
 
+        // Go to the navigator when updated
+        Intent intent = new Intent(this, TempNav.class);
+        startActivity(intent);
+
+    }
+
+    public void clearSharedPreferences(View view) {
+        Globals.setInitialized(false);
+        Globals.setCoach(false);
+
+        // Go to the navigator when updated
+        Intent intent = new Intent(this, ChooseUserActivity.class);
+        startActivity(intent);
     }
 
 }

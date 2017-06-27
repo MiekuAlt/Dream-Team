@@ -22,26 +22,29 @@
         android:id="@+id/buttonUserSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:onClick="updateUserType"
         android:text="Update"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkAthlete" />
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup"
+        android:layout_width="185dp"
+        android:layout_height="162dp"
+        android:layout_marginTop="21dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintTop_toBottomOf="@+id/textUser"
+        tools:layout_editor_absoluteX="100dp">
 
         <RadioButton
             android:id="@+id/checkCoach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="32dp"
             android:text="Coach"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -59,5 +62,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkCoach" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="clearSharedPreferences"
+        android:text="Clear SharedPreferences"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUserSubmit" />
 
 </android.support.constraint.ConstraintLayout>
