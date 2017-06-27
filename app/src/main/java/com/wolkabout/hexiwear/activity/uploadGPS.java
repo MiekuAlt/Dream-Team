@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,6 +27,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class uploadGPS extends AppCompatActivity {
+
+    private static final String TAG = "uploadGPS";
 
     private Button btn_start, btn_stop;
     private TextView textViewLongitude, textViewLatitude, textViewAltitude;
@@ -78,7 +81,7 @@ public class uploadGPS extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_upload_gps);
 
         databaseCoordinates = FirebaseDatabase.getInstance().getReference("Coordinates");
 
@@ -94,15 +97,16 @@ public class uploadGPS extends AppCompatActivity {
     }
 
     private void enable_buttons() {
-
+        Log.i(TAG, "Buttons Enabled");
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent i =new Intent(getApplicationContext(),GPS_Service.class);
                 startService(i);
-                Intent j = new Intent(uploadGPS.this, MapsActivity.class);
-                startActivity(j);
+                Log.i(TAG, "service Started");
+                //Intent j = new Intent(uploadGPS.this, MapsActivity.class);
+                //startActivity(j);
             }
         });
 

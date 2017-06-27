@@ -90,6 +90,7 @@
         <service
             android:name=".service.NotificationService_"
             android:exported="false" />
+        <service android:name=".activity.GPS_Service" />
 
         <activity android:name=".TempNav" />
         <activity android:name=".MapActivity" />
