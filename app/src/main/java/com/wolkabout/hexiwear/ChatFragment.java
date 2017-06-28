@@ -51,7 +51,6 @@ public class ChatFragment extends Fragment {
         setHasOptionsMenu(true);
 
         messageDatabase = FirebaseDatabase.getInstance().getReference("messages");
-
     }
 
     @Override
@@ -94,7 +93,6 @@ public class ChatFragment extends Fragment {
 
     private void setupChat() {
         mConversationArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.message);
-        //mConversationView.setAdapter(mConversationArrayAdapter);
 
         mSendMessageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -106,9 +104,6 @@ public class ChatFragment extends Fragment {
                 }
             }
         });
-
-        // Initialize the buffer for outgoing messages
-        // mOutStringBuffer = new StringBuffer(""); for later
     }
 
     private void sendMessage(String msg) {
@@ -119,7 +114,6 @@ public class ChatFragment extends Fragment {
             } else {
                 messageDatabase.child(id).setValue("Athlete: " + msg);
             }
-
             mToSendEditText.setText("");
         }
     }
