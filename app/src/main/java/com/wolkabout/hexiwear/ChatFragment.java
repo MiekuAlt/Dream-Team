@@ -19,6 +19,7 @@ package com.wolkabout.hexiwear;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +41,9 @@ public class ChatFragment extends Fragment {
     private EditText mToSendEditText;
     private Button mSendMessageButton;
 
-    DatabaseReference messageDatabase;
+    DatabaseReference mMessageDatabase;
+    private static final int mToKeep = 20; //how many messages to keep
+    private static int mNumMessages = 0;
 
     // Used in conjunction with the list view to show messages
     private ListView mConversationView;
@@ -50,7 +54,7 @@ public class ChatFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        messageDatabase = FirebaseDatabase.getInstance().getReference("messages");
+        mMessageDatabase = FirebaseDatabase.getInstance().getReference("messages");
     }
 
     @Override
@@ -58,7 +62,7 @@ public class ChatFragment extends Fragment {
         super.onStart();
         setupChat();
 
-        messageDatabase.addValueEventListener(new ValueEventListener() {
+        mMessageDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {
 
@@ -76,6 +80,29 @@ public class ChatFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (mNumMessages - mToKeep > 0) {
+            Log.e("Nathan", "External count: "+mNumMessages);
+            mMessageDatabase.limitToFirst(mNumMessages - mToKeep).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot data) {
+                    //only start to delete the messages if there are
+                    for (DataSnapshot messageSnapshot : data.getChildren()) {
+                        messageSnapshot.getRef().removeValue();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
     }
 
     @Override
@@ -104,18 +131,33 @@ public class ChatFragment extends Fragment {
                 }
             }
         });
+        updateNumMessages();
     }
 
     private void sendMessage(String msg) {
         if (msg.length() > 0) {
-            String id = messageDatabase.push().getKey();
+            mNumMessages ++;
+            String id = mMessageDatabase.push().getKey();
             if(Globals.isCoach()) {
-                messageDatabase.child(id).setValue("Coach:  " + msg);
+                mMessageDatabase.child(id).setValue("Coach:  " + msg);
             } else {
-                messageDatabase.child(id).setValue("Athlete: " + msg);
+                mMessageDatabase.child(id).setValue("Athlete: " + msg);
             }
             mToSendEditText.setText("");
         }
+    }
+
+    //update the current number of messages
+    private void updateNumMessages() {
+        mMessageDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public final void onDataChange(DataSnapshot data) {
+                mNumMessages = (int) data.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
 }
