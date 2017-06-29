@@ -8,8 +8,6 @@ import android.widget.RadioButton;
 
 public class ChooseUserActivity extends AppCompatActivity {
 
-    //Globals g = Globals.getInstance();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
