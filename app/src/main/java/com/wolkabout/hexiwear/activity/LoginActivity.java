@@ -99,10 +99,15 @@ public class LoginActivity extends AppCompatActivity {
 
     @AfterViews
     void startMainActivity() {
-        if (credentials.username().exists() && !credentials.username().get().equals("Demo")) {
-            MainActivity_.intent(this).start();
-            finish();
-        }
+
+        // Skipping the login page
+        MainActivity_.intent(this).start();
+        finish();
+
+//        if (credentials.username().exists() && !credentials.username().get().equals("Demo")) {
+//            MainActivity_.intent(this).start();
+//            finish();
+//        }
     }
 
     @Click(R.id.signUp)

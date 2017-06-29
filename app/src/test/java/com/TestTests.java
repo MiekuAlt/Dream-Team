@@ -14,4 +14,9 @@ public class TestTests {
         assertEquals(4, 2 + 2);
     }
 
+    @Test
+    public void should_fail() throws Exception {
+        assertTrue(false);
+    }
+
 }

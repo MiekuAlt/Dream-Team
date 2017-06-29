@@ -36,6 +36,11 @@ public class TempNav extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goUserLogin(View view) {
+        Intent intent = new Intent(this, ChooseUserActivity.class);
+        startActivity(intent);
+    }
+
     //may not need this
     @Override
     public void onBackPressed() {
