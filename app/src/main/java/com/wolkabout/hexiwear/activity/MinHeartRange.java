@@ -5,13 +5,13 @@ package com.wolkabout.hexiwear.activity;
  */
 
 public class MinHeartRange {
-        public String minHeartRange;
+        public Long minHeartRange;
         public MinHeartRange() {}
-        public MinHeartRange(String minHeartRange){
+        public MinHeartRange(Long minHeartRange){
             this.minHeartRange = minHeartRange;
         }
-        public void setMinHeartRange(String minHeartRange){
+        public void setMinHeartRange(Long minHeartRange){
             this.minHeartRange = minHeartRange;
         }
-        public String getMinHeartRange() {return minHeartRange; }
+        public Long getMinHeartRange() {return minHeartRange; }
 }
