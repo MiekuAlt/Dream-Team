@@ -22,8 +22,6 @@ public class Globals {
     /**
      *  This initializes the singleton, as long as it already doesn't exist
      *
-     *  @author Michael Altair
-     *
      */
     public static void init(Context context)
     {
@@ -33,8 +31,6 @@ public class Globals {
 
     /**
      * Accesses the stored booleans locally on the user's device through their {@link android.content.SharedPreferences}
-     *
-     * @author Michael Altair
      *
      * @param key The identifier used to access the stored value
      * @param defValue The default value that the stored value will be
@@ -46,8 +42,6 @@ public class Globals {
 
     /**
      * Stores a boolean value into the user's local device under their {@link android.content.SharedPreferences} which is accessible through its key value
-     *
-     * @author Michael Altair
      *
      * @param key The identifier used for the stored value to be accessed
      * @param value The stored boolean that is referenced by its key
@@ -61,8 +55,6 @@ public class Globals {
     /**
      * A public access to set the isInitialized {@link android.content.SharedPreferences}
      *
-     * @author Michael Altair
-     *
      * @param value Whether the type of user (Athlete or Coach) has been set yet
      */
     public static void setInitialized (boolean value) {
@@ -72,8 +64,6 @@ public class Globals {
 
     /**
      * A public access to set the isCoach {@link android.content.SharedPreferences}
-     *
-     * @author Michael Altair
      *
      * @param value Whether the user is a Coach or not a Coach (Therefore, the Athlete)
      */
@@ -85,8 +75,6 @@ public class Globals {
     /**
      * A public way to check {@link android.content.SharedPreferences} if the type of user has been initialized yet
      *
-     * @author Michael Altair
-     *
      * @return Returns whether it was initialized of not
      */
     public static boolean isInitialized () {
@@ -96,8 +84,6 @@ public class Globals {
 
     /**
      * A public way to check {@link android.content.SharedPreferences} if the type of user is a Coach or not
-     *
-     * @author Michael Altair
      *
      * @return Returns if they are a Coach, or if false they are therefore an Athlete
      */
