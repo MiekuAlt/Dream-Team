@@ -5,13 +5,13 @@ package com.wolkabout.hexiwear.activity;
  */
 
 public class MaxHeartRange {
-    public String maxHeartRange;
+    public Long maxHeartRange;
     public MaxHeartRange() {}
-    public MaxHeartRange(String maxHeartRange){
+    public MaxHeartRange(Long maxHeartRange){
         this.maxHeartRange = maxHeartRange;
     }
-    public void setMaxHeartRange(String maxHeartRange){
+    public void setMaxHeartRange(Long maxHeartRange){
         this.maxHeartRange = maxHeartRange;
     }
-    public String getMaxHeartRange() {return maxHeartRange; }
+    public Long getMaxHeartRange() {return maxHeartRange; }
 }
