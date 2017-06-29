@@ -1,5 +1,6 @@
 package com.wolkabout.hexiwear.activity;
 
+import android.graphics.Color;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +54,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng halifax = new LatLng(44.651070, -63.582687);
         mMap.addMarker(new MarkerOptions().position(halifax).title("Marker in Halifax"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(halifax));
+        /*
+        PolylineOptions testLines = new PolylineOptions()
+                .add(new LatLng(44.651270, -63.582087))
+                .add(new LatLng(44.651170, -63.582787))
+                .add(new LatLng(44.652070, -63.580687))
+                .color(Color.GREEN)
+                .width(30);
+        Polyline polyline = mMap.addPolyline(testLines);
+        */
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
