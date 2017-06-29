@@ -42,7 +42,7 @@ public class ChatFragment extends Fragment {
     private Button mSendMessageButton;
 
     DatabaseReference mMessageDatabase;
-    private static final int mToKeep = 20; //how many messages to keep
+    private static final int mToKeep = 50; //how many messages to keep
     private static int mNumMessages = 0;
 
     // Used in conjunction with the list view to show messages
