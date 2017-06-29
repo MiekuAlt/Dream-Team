@@ -39,7 +39,9 @@ public class TempNav extends AppCompatActivity {
 
     public void goUserLogin(View view) {
         Intent intent = new Intent(this, ChooseUserActivity.class);
+        startActivity(intent);
     }
+
     public void goGPS(View view) {
         Intent intent = new Intent(this, uploadGPS.class);
         startActivity(intent);
