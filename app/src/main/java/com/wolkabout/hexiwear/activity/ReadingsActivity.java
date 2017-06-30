@@ -353,11 +353,6 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
     }
 
     @OptionsItem
-    void openSettings() {
-        SettingsActivity_.intent(this).device(hexiwearDevice).manufacturerInfo(bluetoothService.getManufacturerInfo()).start();
-    }
-
-    @OptionsItem
     void setTime() {
         bluetoothService.setTime();
     }
