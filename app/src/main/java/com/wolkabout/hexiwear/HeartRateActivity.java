@@ -13,6 +13,13 @@ import com.wolkabout.hexiwear.activity.HeartRate;
 import com.wolkabout.hexiwear.activity.MinHeartRange;
 import com.wolkabout.hexiwear.activity.MaxHeartRange;
 
+/**
+ * Displays the athlete's current heart rate, provided by Firebase, also has access to the Min and Max
+ * ranges for the athlete's heart rate as set by the coach
+ *
+ * @author Michael Altair
+ * @author Dream Lawson
+ */
 public class HeartRateActivity extends AppCompatActivity {
     DatabaseReference databaseHeartRate;
     DatabaseReference databaseMinHeartRange;
