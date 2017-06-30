@@ -279,11 +279,6 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     }
 
     @OptionsItem
-    void changePassword() {
-        PasswordChangeActivity_.intent(this).start();
-    }
-
-    @OptionsItem
     void signOut() {
         credentials.clear();
         LoginActivity_.intent(this).flags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK).start();

@@ -109,11 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 //            finish();
 //        }
     }
-
-    @Click(R.id.signUp)
-    void openSignUpScreen() {
-        SignUpActivity_.intent(this).start();
-    }
+    
 
     @Click(R.id.signInButton)
     @EditorAction(R.id.passwordField)
@@ -172,10 +168,6 @@ public class LoginActivity extends AppCompatActivity {
         dialog.showWarning(messageRes);
     }
 
-    @Click
-    void resetPassword() {
-        ResetPasswordActivity_.intent(this).start();
-    }
 
     private boolean validateCredentials() {
         if (emailField.isEmpty()) {
