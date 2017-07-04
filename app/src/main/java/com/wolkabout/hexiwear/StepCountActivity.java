@@ -139,7 +139,7 @@ public class StepCountActivity extends AppCompatActivity {
     public double stepAvgWeek(double weekAvg[]){
         int count=0;
         double total=0;
-        while(count !=6)
+        while(count !=7)
         {
             total=total+weekAvg[count];
             count++;
