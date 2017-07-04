@@ -18,18 +18,19 @@ public class HeartRate {
      * @param heartRate The athlete's current heart rate
      */
     public void setHeartRate(String heartRate){
-        int checkedValue;
-        // Making sure it is not a string
-        try {
-            checkedValue = Integer.parseInt(heartRate);
-        } catch (NumberFormatException e){
-            checkedValue = 0;
-        }
-        // Making sure it is not negative
-        if(checkedValue < 0) {
-            checkedValue = 0;
-        }
-        this.heartRate = "" + checkedValue;
+//        int checkedValue;
+//        // Making sure it is not a string
+//        try {
+//            checkedValue = Integer.parseInt(heartRate);
+//        } catch (NumberFormatException e){
+//            checkedValue = 0;
+//        }
+//        // Making sure it is not negative
+//        if(checkedValue < 0) {
+//            checkedValue = 0;
+//        }
+//        this.heartRate = "" + checkedValue;
+        this.heartRate = heartRate;
     }
 
     /**

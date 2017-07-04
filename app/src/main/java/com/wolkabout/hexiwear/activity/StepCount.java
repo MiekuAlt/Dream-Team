@@ -19,18 +19,19 @@ public class StepCount {
      * @param stepCount The athlete's current step count
      */
     public void setStepCount(String stepCount){
-        int checkedValue;
-        // Making sure it is not a string
-        try {
-            checkedValue = Integer.parseInt(stepCount);
-        } catch (NumberFormatException e){
-            checkedValue = 0;
-        }
-        // Making sure it is not negative
-        if(checkedValue < 0) {
-            checkedValue = 0;
-        }
-        this.stepCount = "" + checkedValue;
+//        int checkedValue;
+//        // Making sure it is not a string
+//        try {
+//            checkedValue = Integer.parseInt(stepCount);
+//        } catch (NumberFormatException e){
+//            checkedValue = 0;
+//        }
+//        // Making sure it is not negative
+//        if(checkedValue < 0) {
+//            checkedValue = 0;
+//        }
+//        this.stepCount = "" + checkedValue;
+        this.stepCount = stepCount;
     }
 
     /**
