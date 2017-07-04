@@ -144,8 +144,9 @@ public class StepCountActivity extends AppCompatActivity {
             total=total+weekAvg[count];
             count++;
         }
+        total=total/7;
         total=Math.floor(total*100) / 100;
-        return total/7;
+        return total;
     }
 
     //Launches Whenever the activity is stopped
