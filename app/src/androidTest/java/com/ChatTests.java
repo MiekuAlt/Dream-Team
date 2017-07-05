@@ -64,12 +64,4 @@ public class ChatTests {
         onView(withId(R.id.send_button)).perform(click());
     }
 
-    /*@Test
-    public void checkSuccessfullySent() {
-        onView(withId(R.id.chatButton)).perform(click());
-        onView(withId(R.id.message_text)).perform(typeText(testText));
-        onView(withId(R.id.send_button)).perform(click());
-        onView(withText(testText)).check(matches(withText(testText)));
-    }*/
-
 }
