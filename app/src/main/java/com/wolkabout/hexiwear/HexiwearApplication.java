@@ -21,13 +21,10 @@
 package com.wolkabout.hexiwear;
 
 import android.app.Application;
-import android.content.Intent;
 
-import com.wolkabout.hexiwear.activity.LoginActivity_;
 import com.wolkabout.wolkrestandroid.Credentials_;
 import com.wolkabout.wolkrestandroid.DefaultErrorHandler;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EApplication;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -41,18 +38,6 @@ public class HexiwearApplication extends Application {
     @Bean
     DefaultErrorHandler defaultErrorHandler;
 
-    @AfterInject
-    void setUpServices() {
-        defaultErrorHandler.setErrorHandler(new DefaultErrorHandler.ErrorHandler() {
-            @Override
-            public void onAuthenticationError() {
-                if (credentials.username().get().equals("Demo")) {
-                    return;
-                }
 
-                LoginActivity_.intent(HexiwearApplication.this).flags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK).start();
-            }
-        });
-    }
 
 }

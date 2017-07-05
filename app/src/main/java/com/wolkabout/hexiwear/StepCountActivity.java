@@ -1,9 +1,5 @@
 package com.wolkabout.hexiwear;
 
-/**
- * Created by Michael on 6/13/2017.
- */
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -15,7 +11,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wolkabout.hexiwear.activity.StepCount;
 
-
+/**
+ * Displays the athlete's current step count, provided by Firebase
+ *
+ * @author Michael Altair
+ */
 public class StepCountActivity extends AppCompatActivity {
 
     DatabaseReference databaseStepCount;

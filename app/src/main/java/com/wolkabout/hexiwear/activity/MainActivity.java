@@ -57,7 +57,6 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ItemLongClick;
-import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.Receiver;
@@ -278,17 +277,6 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         }
     }
 
-    @OptionsItem
-    void changePassword() {
-        PasswordChangeActivity_.intent(this).start();
-    }
-
-    @OptionsItem
-    void signOut() {
-        credentials.clear();
-        LoginActivity_.intent(this).flags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK).start();
-        finish();
-    }
 
     @Override
     public void onBackPressed() {
