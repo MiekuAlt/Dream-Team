@@ -29,6 +29,9 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * Obselete class that was transfered over to a service
+ */
 public class uploadGPS extends AppCompatActivity {
 
     private static final String TAG = "uploadGPS";
@@ -40,7 +43,7 @@ public class uploadGPS extends AppCompatActivity {
     private Coordinates coordinates1 = null, coordinates2 = null;
     private double average, sum;
     private int num_altitude_vales_to_average = 5;
- //   public Distance firebaseDistance = null;
+    //   public Distance firebaseDistance = null;
     public double distanceTraveled = 0;
 
     DatabaseReference databaseCoordinates;
@@ -119,7 +122,6 @@ public class uploadGPS extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload_gps);
 
         databaseCoordinates = FirebaseDatabase.getInstance().getReference("Coordinates");
         databaseDistance = FirebaseDatabase.getInstance().getReference("Distance");
@@ -142,9 +144,7 @@ public class uploadGPS extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i =new Intent(getApplicationContext(),GPS_Service.class);
-                startService(i);
-                Log.i(TAG, "service Started");
+
                 //Intent j = new Intent(uploadGPS.this, MapsActivity.class);
                 //startActivity(j);
             }
