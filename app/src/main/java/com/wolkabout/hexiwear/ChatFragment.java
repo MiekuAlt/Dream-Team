@@ -19,7 +19,6 @@ package com.wolkabout.hexiwear;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,15 +27,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wolkabout.hexiwear.service.BluetoothService;
+
 
 public class ChatFragment extends Fragment {
+    private BluetoothService bluetoothService;
 
     private EditText mToSendEditText;
     private Button mSendMessageButton;
@@ -74,6 +75,12 @@ public class ChatFragment extends Fragment {
                 }
 
                 mConversationView.setAdapter(mConversationArrayAdapter);
+
+                if(!Globals.isCoach()) {
+                    BluetoothService bs = new BluetoothService();
+                    bs.vibrateWatch(10);
+                }
+
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -87,7 +94,6 @@ public class ChatFragment extends Fragment {
         super.onStop();
 
         if (mNumMessages - mToKeep > 0) {
-            Log.e("Nathan", "External count: "+mNumMessages);
             mMessageDatabase.limitToFirst(mNumMessages - mToKeep).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot data) {
@@ -144,6 +150,7 @@ public class ChatFragment extends Fragment {
                 mMessageDatabase.child(id).setValue("Athlete: " + msg);
             }
             mToSendEditText.setText("");
+
         }
     }
 
@@ -159,5 +166,6 @@ public class ChatFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
     }
+
 
 }
