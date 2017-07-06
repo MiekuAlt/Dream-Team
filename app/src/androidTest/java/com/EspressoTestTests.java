@@ -27,9 +27,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @LargeTest
 public class EspressoTestTests {
 
-    /*
-        Rules need to be changed based on the functionality you need. Keep this in mind.
-     */
     @Rule
     public ActivityTestRule<TempNav> mActivityRule = new IntentsTestRule<TempNav>(
             TempNav.class);
@@ -38,13 +35,7 @@ public class EspressoTestTests {
     public void opensActivity() { //checks if step counter activity is opened when corresponding button clicked
         onView(withId(R.id.stepCountBut)).perform(click());
         intended(hasComponent(StepCountActivity.class.getName()));
-        //should fail
         //intended(hasComponent(MainActivity.class.getName()));
-    }
-
-    @Test
-    public void opensFragment() {
-        //maybe later
     }
 
 }
