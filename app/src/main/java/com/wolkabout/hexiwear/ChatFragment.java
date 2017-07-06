@@ -118,6 +118,9 @@ public class ChatFragment extends Fragment {
         mSendMessageButton = (Button) view.findViewById(R.id.send_button);
     }
 
+    /**
+     * Initialize the variables required for the chat
+     */
     private void setupChat() {
         mConversationArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.message);
 
@@ -134,6 +137,14 @@ public class ChatFragment extends Fragment {
         updateNumMessages();
     }
 
+    /**
+     * Accessed by a user identified as either a coach or an athlete.
+     *
+     * Sends a message to be stored on the firebase server and displayed
+     * in the chat fragment.
+     *
+     * @param msg Message to be sent
+     */
     private void sendMessage(String msg) {
         if (msg.length() > 0) {
             mNumMessages ++;
@@ -147,7 +158,9 @@ public class ChatFragment extends Fragment {
         }
     }
 
-    //update the current number of messages
+    /**
+     * Record the number of messages
+     */
     private void updateNumMessages() {
         mMessageDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
