@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 /**
- * Created by filipp on 6/16/2016.
+ * Service that receives updates in location from the phone and sends them to the UploadGPS_Service
  */
 public class GPS_Service extends Service {
 
@@ -42,14 +42,10 @@ public class GPS_Service extends Service {
             }
 
             @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
+            public void onStatusChanged(String s, int i, Bundle bundle) {}
 
             @Override
-            public void onProviderEnabled(String s) {
-
-            }
+            public void onProviderEnabled(String s) {}
 
             @Override
             public void onProviderDisabled(String s) {
@@ -61,10 +57,7 @@ public class GPS_Service extends Service {
         };
 
         locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-
-        //noinspection MissingPermission
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,GPS_time_in_milliseconds,0,listener);
-
     }
 
     @Override

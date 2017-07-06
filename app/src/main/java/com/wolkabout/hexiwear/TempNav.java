@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.wolkabout.hexiwear.activity.MapsActivity;
+import com.wolkabout.hexiwear.activity.Tracking;
 import com.wolkabout.hexiwear.activity.uploadGPS;
 
 public class TempNav extends AppCompatActivity {
@@ -32,16 +33,8 @@ public class TempNav extends AppCompatActivity {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
-    public void goRange(View view) {
-        Intent intent = new Intent(this, SetRanges.class);
-        startActivity(intent);
-    }
-
-    public void goUserLogin(View view) {
-        Intent intent = new Intent(this, ChooseUserActivity.class);
-    }
     public void goGPS(View view) {
-        Intent intent = new Intent(this, uploadGPS.class);
+        Intent intent = new Intent(this, Tracking.class);
         startActivity(intent);
     }
 

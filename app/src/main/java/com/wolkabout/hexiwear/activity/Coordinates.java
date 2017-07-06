@@ -3,9 +3,9 @@ package com.wolkabout.hexiwear.activity;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Created by Justin on 6/2/2017.
+ * Class used to receive objects form Firebase and convert them to LngLat Objects to be used in
+ * Google Maps API
  */
-
 public class Coordinates {
     private String longitude, latitude, altitude;
 

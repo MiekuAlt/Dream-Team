@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wolkabout.hexiwear">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -95,7 +93,7 @@
         <service android:name=".activity.GPS_Service" />
 
         <activity android:name=".TempNav" />
-        <!-- <activity android:name=".MapActivity" /> -->
+        <activity android:name=".MapActivity" />
         <activity android:name=".StepCountActivity" />
         <activity android:name=".HeartRateActivity" />
         <!--
@@ -104,7 +102,7 @@
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -113,9 +111,13 @@
         <activity
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".SetRanges" />
-        <activity android:name=".ChooseUserActivity"></activity>
-        <activity android:name=".activity.uploadGPS"></activity>
+        <activity android:name=".activity.uploadGPS" />
+        <activity android:name=".activity.Tracking" />
+
+        <service
+            android:name=".activity.UploadGPS_Service"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
