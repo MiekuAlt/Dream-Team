@@ -16,12 +16,9 @@
 
 package com.wolkabout.hexiwear;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBar;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,20 +27,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wolkabout.hexiwear.service.BluetoothService;
+
 
 public class ChatFragment extends Fragment {
+    private BluetoothService bluetoothService;
 
     private EditText mToSendEditText;
     private Button mSendMessageButton;
 
-    DatabaseReference messageDatabase;
+    DatabaseReference mMessageDatabase;
+    private static final int mToKeep = 50; //how many messages to keep
+    private static int mNumMessages = 0;
 
     // Used in conjunction with the list view to show messages
     private ListView mConversationView;
@@ -54,8 +55,7 @@ public class ChatFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        messageDatabase = FirebaseDatabase.getInstance().getReference("messages");
-
+        mMessageDatabase = FirebaseDatabase.getInstance().getReference("messages");
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ChatFragment extends Fragment {
         super.onStart();
         setupChat();
 
-        messageDatabase.addValueEventListener(new ValueEventListener() {
+        mMessageDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {
 
@@ -71,16 +71,44 @@ public class ChatFragment extends Fragment {
 
                 for (DataSnapshot messageSnapshot : data.getChildren()) {
                     String msg = messageSnapshot.getValue(String.class);
-                    mConversationArrayAdapter.add("Me: " + msg);
+                    mConversationArrayAdapter.add(msg);
                 }
 
                 mConversationView.setAdapter(mConversationArrayAdapter);
+
+                if(!Globals.isCoach()) {
+                    BluetoothService bs = new BluetoothService();
+                    bs.vibrateWatch(10);
+                }
+
             }
             @Override
             public void onCancelled(DatabaseError error) {
 
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (mNumMessages - mToKeep > 0) {
+            mMessageDatabase.limitToFirst(mNumMessages - mToKeep).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot data) {
+                    //only start to delete the messages if there are
+                    for (DataSnapshot messageSnapshot : data.getChildren()) {
+                        messageSnapshot.getRef().removeValue();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
     }
 
     @Override
@@ -96,9 +124,11 @@ public class ChatFragment extends Fragment {
         mSendMessageButton = (Button) view.findViewById(R.id.send_button);
     }
 
+    /**
+     * Initialize the variables required for the chat
+     */
     private void setupChat() {
         mConversationArrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.message);
-        //mConversationView.setAdapter(mConversationArrayAdapter);
 
         mSendMessageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -110,17 +140,45 @@ public class ChatFragment extends Fragment {
                 }
             }
         });
-
-        // Initialize the buffer for outgoing messages
-        // mOutStringBuffer = new StringBuffer(""); for later
+        updateNumMessages();
     }
 
+    /**
+     * Accessed by a user identified as either a coach or an athlete.
+     *
+     * Sends a message to be stored on the firebase server and displayed
+     * in the chat fragment.
+     *
+     * @param msg Message to be sent
+     */
     private void sendMessage(String msg) {
         if (msg.length() > 0) {
-            String id = messageDatabase.push().getKey();
-            messageDatabase.child(id).setValue(msg);
+            mNumMessages ++;
+            String id = mMessageDatabase.push().getKey();
+            if(Globals.isCoach()) {
+                mMessageDatabase.child(id).setValue("Coach:  " + msg);
+            } else {
+                mMessageDatabase.child(id).setValue("Athlete: " + msg);
+            }
             mToSendEditText.setText("");
+
         }
     }
+
+    /**
+     * Record the number of messages
+     */
+    private void updateNumMessages() {
+        mMessageDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public final void onDataChange(DataSnapshot data) {
+                mNumMessages = (int) data.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
 
 }

@@ -397,6 +397,12 @@ public class BluetoothService extends Service {
         queueNotification(UNREAD_EMAILS, value);
     }
 
+    public void vibrateWatch(int numTimes) {
+        for(int i = 0; i < numTimes; i++) {
+            queueNotification(UNREAD_MESSAGES, 1);
+        }
+    }
+
     private void queueNotification(final byte type, final int amount) {
         final byte[] notification = new byte[20];
         notification[0] = WRITE_NOTIFICATION;

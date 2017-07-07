@@ -74,15 +74,13 @@ public class DeviceRegistrationService {
     @RestService
     PointService pointService;
 
+
     @Background
     public void registerHexiwearDevice(final BluetoothDevice device) {
-        if (credentials.username().get().equals("Demo")) {
-            final int demoNumber = devicesStore.getDevices().size() + 1;
-            final HexiwearDevice hexiwearDevice = new HexiwearDevice(device.getName(), "", device.getAddress(), "", "Demo device " + demoNumber);
-            devicesStore.storeDevice(hexiwearDevice);
-            ReadingsActivity_.intent(context).device(device).start();
-        }
-
+        final int demoNumber = devicesStore.getDevices().size() + 1;
+        final HexiwearDevice hexiwearDevice = new HexiwearDevice(device.getName(), "", device.getAddress(), "", "Demo device " + demoNumber);
+        devicesStore.storeDevice(hexiwearDevice);
+        ReadingsActivity_.intent(context).device(device).start();
         final SerialDto serialDto = deviceService.getRandomSerial(SensorType.HEXIWEAR);
         final String serial = serialDto.getSerial();
         getDevices(device, serial);

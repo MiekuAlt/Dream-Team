@@ -1,7 +1,7 @@
 <resources>
 
     <!--GENERAL-->
-    <string name="app_name">Hexiwear</string>
+    <string name="app_name">Trak</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
     <string name="ok">OK</string>

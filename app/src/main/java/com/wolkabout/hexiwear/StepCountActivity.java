@@ -1,9 +1,5 @@
 package com.wolkabout.hexiwear;
 
-/**
- * Created by Michael on 6/13/2017.
- */
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -14,11 +10,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wolkabout.hexiwear.activity.StepCount;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
+/**
+ * Displays the athlete's current step count, provided by Firebase
+ *
+ * @author Michael Altair
+ */
 public class StepCountActivity extends AppCompatActivity {
 
     DatabaseReference databaseStepCount;
+    DatabaseReference databaseHistoricStepCount;
+    private LineGraphSeries<DataPoint> historicStep;
+    private int i, steps;
+    private int weekCounter;
+    private double weekAvg[]=new double[7];
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
+    private String date = dateFormat.format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +43,25 @@ public class StepCountActivity extends AppCompatActivity {
 
         // Initializing the database
         databaseStepCount = FirebaseDatabase.getInstance().getReference("StepCount");
+        databaseHistoricStepCount= FirebaseDatabase.getInstance().getReference("HistoricStepCount");
 
-    } // end of onCreate method
+        //Creates the viewport of a line graph outlining the max heart rate each day over a 7 day period
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        historicStep = new LineGraphSeries<DataPoint>();
+        graph.addSeries(historicStep);
+        Viewport viewport = graph.getViewport();
+        viewport.setYAxisBoundsManual(true);
+        viewport.setXAxisBoundsManual(true);
+
+        viewport.setMinX(0);
+        viewport.setMaxX(6);
+        viewport.setMinY(0);
+        viewport.setMaxY(15000);
+        graph.setTitle("Historic Step Count");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Steps Taken");
+
+    }
 
     @Override
     protected void onStart() {
@@ -47,6 +80,11 @@ public class StepCountActivity extends AppCompatActivity {
                 String output = stepCount.getStepCount();
                 textView.setText(output);
 
+                String stepNum[]=output.split(" ");
+
+                steps=Integer.parseInt(stepNum[0]);
+
+
             }
 
             @Override
@@ -54,6 +92,70 @@ public class StepCountActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+        //Gets all of the historical data from the database and graphs it using addEntry
+        databaseHistoricStepCount.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Grabbing the data from Firebase
+                for (DataSnapshot valuesSnapshot : dataSnapshot.getChildren()) {
+                    //The key is the date
+                    String d=valuesSnapshot.getKey();
+                    //the value is the max Step Count on a given day
+                    int point = valuesSnapshot.getValue(int.class);
+                    addEntry(d, point);
+
+                    // Creates an array that stores the past 7 days of data
+                    // if the count reaches 6 (7 days) it resets the counter and the earliest entry
+                    // will be removed so the past 7 days will always be represented
+                    if(weekCounter!=6)
+                    {
+                        weekAvg[weekCounter]=point;
+                        weekCounter++;
+                    }
+                    else
+                    {
+                        weekCounter=0;
+                    }
+                    double weekly=stepAvgWeek(weekAvg);
+                    TextView view = (TextView) findViewById(R.id.avgDisplay);
+                    view.setText(String.valueOf(weekly));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+    //Plots the data to the graph
+    //d is not currently used but passes the date
+    private void addEntry(String d, int p) {
+        // Display max 100 points on the viewport
+        historicStep.appendData(new DataPoint(i++, p), true, 100);
+    }
+
+    //A method to calculate the average number of steps taken in the past 7 days
+    public double stepAvgWeek(double weekAvg[]){
+        int count=0;
+        double total=0;
+        while(count !=7)
+        {
+            total=total+weekAvg[count];
+            count++;
+        }
+        total=total/7;
+        total=Math.floor(total*100) / 100;
+        return total;
+    }
+
+    //Launches Whenever the activity is stopped
+    public void onStop()
+    {
+        super.onStop();
+        //Creates a date and sets the value in the database on the date to the max rate
+        databaseHistoricStepCount.child(date).setValue(steps);
+
     }
 
 }

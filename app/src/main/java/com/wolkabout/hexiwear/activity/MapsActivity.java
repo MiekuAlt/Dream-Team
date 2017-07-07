@@ -1,19 +1,50 @@
 package com.wolkabout.hexiwear.activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wolkabout.hexiwear.R;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Google Maps activity that allows the user to track their route in real-time on the map
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("Coordinates");
+    ArrayList<LatLng> coordinateList;
+    SharedPreferences sharedPreferences;
+    private static final String TAG = "Maps Activity";
+    Polyline historicLine;
+    PolylineOptions historicLineOptions;
+    Polyline updatetLine;
+    PolylineOptions updateLineOptions;
+    private int numCoordinates = 0;
+    private LatLng mostRecent;
+    private LatLng sMostRecent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +54,126 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        coordinateList= stringToArray(sharedPreferences.getString("coordinates",""));
+
+        historicLineOptions = new PolylineOptions().color(Color.BLUE).width(20);
+        updateLineOptions = new PolylineOptions().color(Color.GREEN).width(20);
+        //coordinateList = new ArrayList<>();
     }
 
-
     /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
+     * instantiate the eventlistner that registers when coordinates are updated
+     * @param googleMap
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.clear();
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng halifax = new LatLng(44.651070, -63.582687);
+        //mMap.addMarker(new MarkerOptions().position(halifax).title("Marker in Halifax"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(halifax,13));
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mMap.clear();
+                Coordinates coordinates = dataSnapshot.getValue(Coordinates.class);
+                addCoordinatesToPolyLine(coordinates);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    /**
+     * method that updates the polyLine objects with the latest coordinate from FireBase
+     * @param coordinates a coordinate object with longitude, latitude and altitude
+     */
+    private void addCoordinatesToPolyLine(Coordinates coordinates){
+        //mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()));
+        coordinateList.add(coordinates.toLatLng());
+        mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()).icon(BitmapDescriptorFactory.fromResource(R.drawable.hello_kitty)));
+        Log.i(TAG, coordinates.toLatLng().toString());
+        if(numCoordinates <2){
+            if(numCoordinates == 0) {
+                sMostRecent = coordinates.toLatLng();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sMostRecent,15));
+            }
+            else {
+                mostRecent = coordinates.toLatLng();
+                historicLineOptions.add(sMostRecent);
+            }
+            updateLineOptions.add(coordinates.toLatLng());
+            numCoordinates++;
+        }
+        else{
+            historicLineOptions.add(mostRecent);
+            sMostRecent = mostRecent;
+            mostRecent = coordinates.toLatLng();
+            updateLineOptions = new PolylineOptions().add(sMostRecent).add(mostRecent).color(Color.GREEN).width(20);
+        }
+        historicLine = mMap.addPolyline(historicLineOptions);
+        updatetLine = mMap.addPolyline(updateLineOptions);
+    }
+    protected void onResume() {
+        super.onResume();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Coordinates coordinates = dataSnapshot.getValue(Coordinates.class);
+                mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()));
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    /**
+     * Converts the current list of displayed coordinates to a string so that they can be
+     * retained after the app has been closed;
+     * @return
+     */
+    private String arrayToString(){
+        String result = "";
+        for(LatLng l: coordinateList){
+            result += l.longitude + " " + l.latitude + " ";
+        }
+        return result;
+    }
+
+    /**
+     * reverts the changes of arrayToString() by converting the string into an arraylist of coordinates.
+     * @param s
+     * @return
+     */
+    private ArrayList<LatLng> stringToArray(String s){
+        ArrayList<LatLng> list = new ArrayList<LatLng>();
+        Scanner in = new Scanner(s);
+        while(in.hasNext()){
+            list.add(new LatLng(Double.parseDouble(in.next()), Double.parseDouble(in.next())));
+        }
+        return list;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("coordinates", arrayToString());
+        editor.commit();
+        //Toast.makeText(getApplicationContext(), "Paused", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Toast.makeText(getApplicationContext(), "Destroyed", Toast.LENGTH_LONG).show();
+
     }
 }
