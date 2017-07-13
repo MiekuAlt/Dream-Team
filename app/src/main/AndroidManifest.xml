@@ -113,6 +113,8 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".activity.uploadGPS" />
         <activity android:name=".activity.Tracking" />
+        <activity android:name=".ChooseUserActivity" />
+        <activity android:name=".SetRanges" />
 
         <service
             android:name=".activity.UploadGPS_Service"
