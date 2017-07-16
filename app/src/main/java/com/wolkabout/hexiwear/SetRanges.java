@@ -14,7 +14,9 @@ import static com.wolkabout.hexiwear.R.layout.activity_set_range;
 
 
 /**
- * Created by Evan on 2017-06-13.
+ * Sets the heart rate range on Firebase based on the user's inputs
+ * @author Evan Cruz
+ * @author Sitanun Changhor (Dream)
  */
 
 public class SetRanges extends AppCompatActivity {
@@ -71,4 +73,3 @@ public class SetRanges extends AppCompatActivity {
         }
     }
 }
-
