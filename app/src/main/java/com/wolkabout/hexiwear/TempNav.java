@@ -1,13 +1,14 @@
 package com.wolkabout.hexiwear;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.wolkabout.hexiwear.activity.MapsActivity;
 import com.wolkabout.hexiwear.activity.Tracking;
-import com.wolkabout.hexiwear.activity.uploadGPS;
 
 /**
  * Used to provide temporary access to the different activities the team is working on
@@ -40,8 +41,13 @@ public class TempNav extends AppCompatActivity {
      *  Takes the user to the Chat Fragment
      */
     public void goChat(View view) {
-        getSupportFragmentManager().
-                beginTransaction().add(R.id.fragment_container, new ChatFragment()).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        ChatFragment chatFragment = new ChatFragment();
+
+        fragmentTransaction.add(R.id.fragment_container, chatFragment);
+        fragmentTransaction.commit();
+        fragmentTransaction.addToBackStack(null);
     }
     /**
      *  Takes the user to the Map Activity

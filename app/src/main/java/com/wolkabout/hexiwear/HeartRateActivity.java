@@ -32,7 +32,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
  * ranges for the athlete's heart rate as set by the coach
  *
  * @author Michael Altair
- * @author Dream Lawson
+ * @author Sitanun Changhor (Dream)
  */
 public class HeartRateActivity extends AppCompatActivity {
     DatabaseReference databaseHeartRate;
@@ -49,7 +49,7 @@ public class HeartRateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heart_rate);
-        
+
         // Initializing the database
         databaseHeartRate = FirebaseDatabase.getInstance().getReference("HeartRate");
         databaseMinHeartRange = FirebaseDatabase.getInstance().getReference("MinHeartRange");
