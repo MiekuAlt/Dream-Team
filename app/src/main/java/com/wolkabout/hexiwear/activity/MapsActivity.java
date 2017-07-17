@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -45,6 +47,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int numCoordinates = 0;
     private LatLng mostRecent;
     private LatLng sMostRecent;
+    private double distance = 0;
+    private LatLng mostReventMarker = null;
+    private LatLng sMostRecentMarker = null;
+    private PolylineOptions routeLineOptions = new PolylineOptions();
+    private ArrayList<Marker> markers = new ArrayList<Marker>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +92,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                addRouteMarker(latLng);
+                //mMap.addMarker(new MarkerOptions().position(latLng).title("My Click").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            }
+        });
+    }
+
+    /**
+     * used to set the route and disable editing
+     * @param view
+     */
+    public void setRoute(View view){
+        for(Marker m: markers)
+            m.remove();
+        routeLineOptions.color(Color.GREEN).width(20);
+        mMap.addPolyline(routeLineOptions);
+    }
+    /**
+     * adds marker to the map that the user selected and updates the polyline and the distance ignoring altitude values
+     * @param latLng
+     */
+    private void addRouteMarker(LatLng latLng) {
+        if(mostReventMarker == null) {
+            mostReventMarker = latLng;
+            //mMap.addMarker(new MarkerOptions().position(latLng).title("My Click").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).setSnippet(distance+"");
+        }
+        else{
+            sMostRecentMarker = mostReventMarker;
+            mostReventMarker = latLng;
+            distance += UploadGPS_Service.distance(
+                    new Coordinates(mostReventMarker.longitude+"", mostReventMarker.latitude+"", 0.0+""),
+                    new Coordinates(sMostRecentMarker.longitude+"", sMostRecentMarker.latitude+"", 0.0+""));
+
+        }
+
+
+        Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title("Distance").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        marker.setSnippet(Math.floor(distance)/1000+" KM");
+        marker.showInfoWindow();
+        markers.add(marker);
+        routeLineOptions.add(mostReventMarker).color(Color.YELLOW).width(20);
+        mMap.addPolyline(routeLineOptions);
     }
 
     /**
