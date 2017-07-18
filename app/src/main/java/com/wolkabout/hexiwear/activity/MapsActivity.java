@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wolkabout.hexiwear.Globals;
 import com.wolkabout.hexiwear.R;
 
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -71,6 +73,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         historicLineOptions = new PolylineOptions().color(Color.BLUE).width(20);
         updateLineOptions = new PolylineOptions().color(Color.GREEN).width(20);
         send_Button = (Button) findViewById(R.id.button_send);
+        if(!Globals.isCoach()){
+            Button make_Button = (Button) findViewById(R.id.button_make);
+            make_Button.setVisibility(View.INVISIBLE);
+        }
+
         //coordinateList = new ArrayList<>();
     }
 

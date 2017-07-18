@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.wolkabout.hexiwear.Globals;
 import com.wolkabout.hexiwear.R;
 
 /**
@@ -37,6 +38,8 @@ public class Tracking extends AppCompatActivity {
         setContentView(R.layout.activity_tracking);
         Log.i(TAG, "On Create Done successfully");
         button_tracking = (Button) findViewById(R.id.button_tracking);
+        if(Globals.isCoach())
+            button_tracking.setVisibility(View.INVISIBLE);
         if (savedInstanceState != null){
             Log.i(TAG, "Saved instance is not NULL");
             button_tracking.setText(savedInstanceState.getString("btn_text"));
