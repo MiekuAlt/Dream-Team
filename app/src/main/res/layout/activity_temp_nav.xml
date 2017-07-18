@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     tools:context="com.wolkabout.hexiwear.TempNav">
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -21,151 +22,169 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="8dp"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/stepCountBut"
-        android:layout_width="205dp"
-        android:layout_height="87dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/HK_Bow_Color"
-        android:fontFamily="sans-serif-condensed"
-        android:onClick="goStepCount"
-        android:text="Step Counter"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintLeft_creator="1" />
 
-    <Button
-        android:id="@+id/heartRateBut"
-        android:layout_width="205dp"
-        android:layout_height="87dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/stepCountBut"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:background="@color/HK_Color_2"
-        android:fontFamily="sans-serif-condensed"
-        android:onClick="goHeartRate"
-        android:text="Heart Rate"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toRightOf="@+id/stepCountBut"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepCountBut" />
+    <LinearLayout
+        android:id="@+id/left_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/chatButton"
-        android:layout_width="205dp"
-        android:layout_height="87dp"
-        android:layout_alignStart="@+id/uploadGPS"
-        android:layout_below="@+id/stepCountBut"
-        android:layout_marginTop="88dp"
-        android:background="@color/HK_Color_3"
-        android:fontFamily="sans-serif-condensed"
-        android:onClick="goChat"
-        android:text="@string/chat"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stepCountBut" />
-        app:layout_constraintTop_toBottomOf="@+id/heartRateBut"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1" />
+        <Button
+            android:id="@+id/stepCountBut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/HK_Bow_Color"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goStepCount"
+            android:text="Step Counter"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-    <Button
-        android:id="@+id/mapBut"
-        android:layout_width="205dp"
-        android:layout_height="87dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/chatButton"
-        android:layout_marginLeft="8dp"
-        android:background="@color/HK_Color_4"
-        android:fontFamily="sans-serif-condensed"
-        android:onClick="goMap"
-        android:text="Map"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toRightOf="@+id/fragment_container"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heartRateBut" /><![CDATA[
-        app:layout_constraintTop_toBottomOf="@+id/chatButton"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1" />
+        <View
+            android:id="@+id/filler2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
 
-    ]]>
+        <Button
+            android:id="@+id/chatButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/HK_Color_3"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goChat"
+            android:text="@string/chat"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-    <Button
-        android:id="@+id/uploadGPS"
-        android:layout_width="205dp"
-        android:layout_height="87dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/mapBut"
-        android:layout_marginLeft="0dp"
-        android:background="@color/HK_Color_5"
-        android:fontFamily="sans-serif-condensed"
-        android:onClick="goGPS"
-        android:text="Upload GPS"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintBottom_toTopOf="@+id/rangeBut"
-        app:layout_constraintLeft_toRightOf="@+id/fragment_container"
-        app:layout_constraintTop_toBottomOf="@+id/chatButton"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_constraintTop_creator="1" />
+        <View
+            android:id="@+id/filler4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/rangeBut"
-        android:layout_width="205dp"
-        android:layout_height="87dp"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/uploadGPS"
-        android:layout_marginRight="0dp"
-        android:background="@color/aqua"
-        android:fontFamily="sans-serif-condensed"
-        android:onClick="goRange"
-        android:text="Set Range"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintBottom_toTopOf="@+id/userBut"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapBut"
-        app:layout_constraintVertical_bias="1.0" />
+        <Button
+            android:id="@+id/uploadGPS"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/HK_Color_5"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goGPS"
+            android:text="Upload GPS"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-    <Button
-        android:id="@+id/userBut"
-        android:layout_width="205dp"
-        android:layout_height="87dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/rangeBut"
-        android:layout_marginLeft="0dp"
-        android:layout_toStartOf="@+id/rangeBut"
-        android:background="?attr/colorPrimaryDark"
-        android:fontFamily="sans-serif-condensed"
-        android:onClick="goUserLogin"
-        android:text="User Login"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:typeface="monospace"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/fragment_container"
-        app:layout_constraintTop_toBottomOf="@+id/uploadGPS"
-        app:layout_constraintVertical_bias="1.0" />
+        <View
+            android:id="@+id/filler6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/userBut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/colorPrimaryDark"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goUserLogin"
+            android:text="User Login"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/right_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/filler1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/heartRateBut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/stepCountBut"
+            android:background="@color/HK_Color_2"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goHeartRate"
+            android:text="Heart Rate"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <View
+            android:id="@+id/filler3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/mapBut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/HK_Color_4"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goMap"
+            android:text="Map"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <View
+            android:id="@+id/filler5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/rangeBut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/aqua"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goRange"
+            android:text="Set Range"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <View
+            android:id="@+id/filler7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+</LinearLayout>
