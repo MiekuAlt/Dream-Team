@@ -1,7 +1,9 @@
 package com.wolkabout.hexiwear;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.wolkabout.hexiwear.activity.HeartRate;
 import com.wolkabout.hexiwear.activity.MaxHeartRange;
 import com.wolkabout.hexiwear.activity.MinHeartRange;
+import com.wolkabout.hexiwear.service.BluetoothService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,6 +39,7 @@ public class HeartRateActivity extends AppCompatActivity {
     DatabaseReference databaseHistoricHeartRate;
     private LineGraphSeries<DataPoint> historicHeart;
     private int i, maxRate;
+    private long maxHeartRate, minHeartRate;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
     private String date = dateFormat.format(new Date());
 
@@ -97,6 +101,20 @@ public class HeartRateActivity extends AppCompatActivity {
                 if(rate > maxRate){
                     maxRate=rate;
                 }
+
+                // Checking if the heartrate falls within range
+                // Does not check if the heartrate is not intialized and there is not set max
+                if(rate > 0 && maxHeartRate > 0) {
+                    if (rate > maxHeartRate || rate < minHeartRate) {
+                        textView.setTextColor(Color.RED);
+                        rangeDanger();
+                    } else {
+                        textView.setTextColor(Color.BLACK);
+                    }
+                } else {
+                    textView.setTextColor(Color.BLACK);
+                }
+
             }
 
             @Override
@@ -116,6 +134,8 @@ public class HeartRateActivity extends AppCompatActivity {
                 TextView textView = (TextView) findViewById(R.id.minRange);
                 Long output = minHeartRange.getMinHeartRange();
                 textView.setText(output.toString());
+
+                minHeartRate = minHeartRange.getMinHeartRange();
             }
 
             @Override
@@ -135,6 +155,8 @@ public class HeartRateActivity extends AppCompatActivity {
                 TextView textView = (TextView) findViewById(R.id.maxRange);
                 Long output = maxHeartRange.getMaxHeartRange();
                 textView.setText(output.toString());
+
+                maxHeartRate = maxHeartRange.getMaxHeartRange();
 
             }
 
@@ -192,6 +214,23 @@ public class HeartRateActivity extends AppCompatActivity {
         super.onStop();
         //Creates a date and sets the value in the database on the date to the max rate
         databaseHistoricHeartRate.child(date).setValue(maxRate);
-
     }
+
+    /**
+     * This is triggered when the athlete's heartrate is outside the range set by the coach
+     * If the user is the coach, their phone vibrates when out of rate. If the user is an
+     * athlete, their watch vibrates
+     */
+    public void rangeDanger() {
+        if(Globals.isCoach()){
+            // Vibrates the coach's phone if out of range
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(400);
+        } else {
+            // Vibrates the athlete's watch if out of range
+            BluetoothService bs = new BluetoothService();
+            bs.vibrateWatch(2);
+        }
+    }
+
 }
