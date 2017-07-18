@@ -1,5 +1,6 @@
 package com.wolkabout.hexiwear;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -9,16 +10,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wolkabout.hexiwear.activity.StepCount;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-
-
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.wolkabout.hexiwear.activity.StepCount;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Displays the athlete's current step count, provided by Firebase
@@ -49,17 +48,22 @@ public class StepCountActivity extends AppCompatActivity {
         GraphView graph = (GraphView) findViewById(R.id.graph);
         historicStep = new LineGraphSeries<DataPoint>();
         graph.addSeries(historicStep);
+        historicStep.setDrawDataPoints(true);
+        historicStep.setDataPointsRadius(10);
+        historicStep.setDrawBackground(true);
+        historicStep.setBackgroundColor(Color.parseColor("#8087CEEB"));
         Viewport viewport = graph.getViewport();
         viewport.setYAxisBoundsManual(true);
         viewport.setXAxisBoundsManual(true);
-
+        //test changes
         viewport.setMinX(0);
         viewport.setMaxX(6);
         viewport.setMinY(0);
-        viewport.setMaxY(15000);
+        viewport.setMaxY(16000);
         graph.setTitle("Historic Step Count");
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Day");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Steps Taken");
+        //hello
 
     }
 
