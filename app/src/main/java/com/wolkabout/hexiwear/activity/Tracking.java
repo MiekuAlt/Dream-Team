@@ -1,6 +1,7 @@
 package com.wolkabout.hexiwear.activity;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -50,7 +51,7 @@ public class Tracking extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(TAG, "Button is Clicked");
                 if(!runtime_permissions()){
-                    if(!isTracking) {
+                    if(!isMyServiceRunning(UploadGPS_Service.class)) {
                         Log.i(TAG, "Should now be tracking");
                         Intent i = new Intent(getApplicationContext(), UploadGPS_Service.class);
                         startService(i);
@@ -62,14 +63,26 @@ public class Tracking extends AppCompatActivity {
                         Log.i(TAG, "Not Tracking Anymore");
                         Intent i = new Intent(getApplicationContext(),UploadGPS_Service.class);
                         stopService(i);
+                        Intent j = new Intent(getApplicationContext(),GPS_Service.class);
+                        stopService(j);
                         isTracking = false;
                         button_tracking.setText("Start Tracking");
+                        Toast.makeText(getApplicationContext(), "Not Tracking", Toast.LENGTH_LONG).show();
                     }
                 }
             }
         });
     }
 
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * determine if the runtime persmissions required are granted, if they are not then it will request them
      * @return false if all persmissions are granted, true, if they need to be acquired
