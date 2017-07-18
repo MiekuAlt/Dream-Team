@@ -1,8 +1,8 @@
 package com.wolkabout.hexiwear;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -10,21 +10,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
-import com.wolkabout.hexiwear.activity.HeartRate;
-import com.wolkabout.hexiwear.activity.MinHeartRange;
-import com.wolkabout.hexiwear.activity.MaxHeartRange;
-import com.wolkabout.hexiwear.activity.HistoricHeartRate;
-import com.wolkabout.hexiwear.activity.HeartRate;
-import java.util.Calendar;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.wolkabout.hexiwear.activity.HeartRate;
+import com.wolkabout.hexiwear.activity.MaxHeartRange;
+import com.wolkabout.hexiwear.activity.MinHeartRange;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -61,6 +56,10 @@ public class HeartRateActivity extends AppCompatActivity {
         GraphView graph = (GraphView) findViewById(R.id.graph);
         historicHeart = new LineGraphSeries<DataPoint>();
         graph.addSeries(historicHeart);
+        historicHeart.setDrawDataPoints(true);
+        historicHeart.setDataPointsRadius(10);
+        historicHeart.setDrawBackground(true);
+        historicHeart.setBackgroundColor(Color.parseColor("#8087CEEB"));
         Viewport viewport = graph.getViewport();
         viewport.setYAxisBoundsManual(true);
         viewport.setXAxisBoundsManual(true);
@@ -70,7 +69,7 @@ public class HeartRateActivity extends AppCompatActivity {
         viewport.setMinY(0);
         viewport.setMaxY(200);
         graph.setTitle("Historic Max Heart Rate");
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
+        graph.getGridLabelRenderer().setHorizontalAxisTitle("Day");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Heart rate");
 
     }
