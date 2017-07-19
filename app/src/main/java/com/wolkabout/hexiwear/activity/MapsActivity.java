@@ -251,8 +251,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param coordinates a coordinate object with longitude, latitude and altitude
      */
     private void addCoordinatesToPolyLine(Coordinates coordinates){
-        //mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()));
-        //coordinateList.add(coordinates.toLatLng());
         if(currentPosition!= null)
             currentPosition.remove();
         currentPosition = mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()).icon(BitmapDescriptorFactory.fromResource(R.drawable.hello_kitty)));
@@ -315,16 +313,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return list;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        //editor.putString("coordinates", arrayToString());
-        editor.commit();
-        //Toast.makeText(getApplicationContext(), "Paused", Toast.LENGTH_LONG).show();
-    }
-
+    /**
+     * unregister the broadcast receiver and send message to GetCoordinates_Service telling it that
+     * this activity is closing
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

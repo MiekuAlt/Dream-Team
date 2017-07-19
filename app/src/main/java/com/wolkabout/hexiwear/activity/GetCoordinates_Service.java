@@ -50,6 +50,7 @@ public class GetCoordinates_Service extends Service {
 
     @Override
     public void onCreate() {
+        //receives stored data from the sharedPreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         coordinatesArray = stringToArray(sharedPreferences.getString("coordinates",""));
         Log.i(TAG, "GetCoordinates_Service Created");
@@ -84,6 +85,8 @@ public class GetCoordinates_Service extends Service {
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     String result = intent.getStringExtra("Status");
+                    //parse communications from the MapsActivity
+                    //MapsActivity is now running
                     if(result.equals("true")) {
                         isMapsActivityOpen = true;
                         //isMapsActivityOpen = intent.getStringExtra("Status");
@@ -94,8 +97,10 @@ public class GetCoordinates_Service extends Service {
                         sendBroadcast(i);
                         Log.i(TAG, "Array of Coordinates Sent");
                     }
+                    //Maps Activity requested that the stored data be cleared
                     else if(result.equals("clear"))
                         coordinatesArray.clear();
+                    //MapsActivity has closed
                     else if(result.equals("false"))
                         isMapsActivityOpen = false;
                 }

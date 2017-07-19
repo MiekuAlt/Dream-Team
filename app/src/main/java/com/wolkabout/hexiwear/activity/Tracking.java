@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,9 +27,7 @@ public class Tracking extends AppCompatActivity {
     private Button button_tracking;
     boolean isTracking = false;
     private static final String TAG = "tracking";
-    public static final String MyPreferences = "MyPrefs";
 
-    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +35,16 @@ public class Tracking extends AppCompatActivity {
         setContentView(R.layout.activity_tracking);
         Log.i(TAG, "On Create Done successfully");
         button_tracking = (Button) findViewById(R.id.button_tracking);
+        //only athlete is allowed to be tracked
         if(Globals.isCoach())
             button_tracking.setVisibility(View.INVISIBLE);
-
+        //sets initial value for text of Tracking Button
         if(!isMyServiceRunning(UploadGPS_Service.class))
             button_tracking.setText("Start Tracking");
         else
             button_tracking.setText("Stop Tracking");
 
-        //allows state to be maintained on activity being destroyed
-        sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        //button_tracking.setText(sharedPreferences.getString("btn_name","START TRACKING"));
-        isTracking = sharedPreferences.getBoolean("isTracking", false);
-
+        //sets onClicklistener for the tracking button
         button_tracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +73,11 @@ public class Tracking extends AppCompatActivity {
         });
     }
 
+    /**
+     * Class the determines if a service is running or not
+     * @param serviceClass service in question
+     * @return true if service is running, false otherwise
+     */
     private boolean isMyServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -119,37 +118,5 @@ public class Tracking extends AppCompatActivity {
                 runtime_permissions();
             }
         }
-    }
-
-    /**
-     * saves the state of the activity should it be partially obstructed or have its orientation changed
-     * @param outstate
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outstate){
-        Log.i(TAG, "in on save state");
-        outstate.putString("btn_text", button_tracking.getText().toString());
-        super.onSaveInstanceState(outstate);
-    }
-
-    /**
-     * restored the state of the activity
-     * @param savedInstanceState
-     */
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        Log.i(TAG, "in on restore");
-        //button_tracking.setText(savedInstanceState.getString("btn_text"));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("btn_name", button_tracking.getText().toString());
-        editor.putBoolean("isTracking", isTracking);
-        editor.commit();
-        //Toast.makeText(getApplicationContext(), "Saved Preferences", Toast.LENGTH_LONG).show();
     }
 }
