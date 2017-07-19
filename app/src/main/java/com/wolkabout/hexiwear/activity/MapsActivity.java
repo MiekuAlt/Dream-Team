@@ -43,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref = database.getReference("Coordinates");
+    DatabaseReference ref = database.getReference("Route");
     ArrayList<Coordinates> coordinateList;
     SharedPreferences sharedPreferences;
     private static final String TAG = "Maps Activity";
@@ -64,6 +64,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button send_Button;
     private BroadcastReceiver broadcastReceiver;
     private boolean isfirstRun = true;
+    private Marker currentPosition;
+    private ArrayList<LatLng> routePoints = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +77,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        //sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        //coordinateList= stringToArray(sharedPreferences.getString("coordinates",""));
 
         historicLineOptions = new PolylineOptions().color(Color.BLUE).width(20);
         updateLineOptions = new PolylineOptions().color(Color.GREEN).width(20);
@@ -122,6 +122,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         intentFilter.addAction("array");
         intentFilter.addAction("coordinates");
         registerReceiver(broadcastReceiver,new IntentFilter("GetCoordinates_Service"));
+
+        //adds event listener for a new route being sent to athlete
+        if(!Globals.isCoach()) {
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Route route = dataSnapshot.getValue(Route.class);
+                    if(route != null)
+                        routePoints = stringToArray(route.getRoute());
+                    for (LatLng l : routePoints)
+                        routeLineOptions.add(l).color(Color.GREEN).width(20);
+                    mMap.addPolyline(routeLineOptions);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+
     }
 
     /**
@@ -135,20 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng halifax = new LatLng(44.651070, -63.582687);
-        //mMap.addMarker(new MarkerOptions().position(halifax).title("Marker in Halifax"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(halifax,13));
-        /*
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mMap.clear();
-                Coordinates coordinates = dataSnapshot.getValue(Coordinates.class);
-                addCoordinatesToPolyLine(coordinates);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-        */
         //allows user to create custom routes on Map
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
@@ -164,8 +171,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         distance = 0;
         mostReventMarker = null;
         sMostRecentMarker = null;
-        for(Marker m: markers)
-            m.remove();
+        markers.clear();
+        routePoints.clear();
         if(routeLine != null) {
             routeLine.remove();
             routeLine = null;
@@ -192,8 +199,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     public void sendRoute(View view){
         if(markers.size() >0) {
-            for (Marker m : markers)
-                m.remove();
+            markers.clear();
+            //upload the route to firebase
+            ref.setValue(new Route(arrayToString()));
             routeLineOptions.color(Color.GREEN).width(20);
             routeLine.remove();
             routeLine = mMap.addPolyline(routeLineOptions);
@@ -227,6 +235,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         marker.setSnippet(Math.floor(distance)/1000+" KM");
         marker.showInfoWindow();
         markers.add(marker);
+        routePoints.add(latLng);
         routeLineOptions.add(mostReventMarker).color(Color.YELLOW).width(20);
         if(routeLine != null)
             routeLine.remove();
@@ -240,7 +249,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void addCoordinatesToPolyLine(Coordinates coordinates){
         //mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()));
         //coordinateList.add(coordinates.toLatLng());
-        mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()).icon(BitmapDescriptorFactory.fromResource(R.drawable.hello_kitty)));
+        if(currentPosition!= null)
+            currentPosition.remove();
+        currentPosition = mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()).icon(BitmapDescriptorFactory.fromResource(R.drawable.hello_kitty)));
         Log.i(TAG, coordinates.toLatLng().toString());
         if(numCoordinates <2){
             if(numCoordinates == 0) {
@@ -265,19 +276,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     protected void onResume() {
         super.onResume();
-        /*
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Coordinates coordinates = dataSnapshot.getValue(Coordinates.class);
-                mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()));
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        */
     }
 
     /**
@@ -285,15 +283,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * retained after the app has been closed;
      * @return
      */
-    /*
+
     private String arrayToString(){
         String result = "";
-        for(LatLng l: coordinateList){
+        for(LatLng l: routePoints){
             result += l.longitude + " " + l.latitude + " ";
         }
         return result;
     }
-    */
+
     /**
      * reverts the changes of arrayToString() by converting the string into an arraylist of coordinates.
      * @param s
@@ -304,6 +302,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Scanner in = new Scanner(s);
         while(in.hasNext()){
             list.add(new LatLng(Double.parseDouble(in.next()), Double.parseDouble(in.next())));
+            Log.i(TAG, "parsing element of route");
         }
         return list;
     }
