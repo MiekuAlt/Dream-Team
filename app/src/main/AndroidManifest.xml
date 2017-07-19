@@ -92,9 +92,7 @@
             android:name=".service.NotificationService_"
             android:exported="false" />
 
-
         <activity android:name=".TempNav" />
-
         <activity android:name=".StepCountActivity" />
         <activity android:name=".HeartRateActivity" />
         <!--
@@ -121,14 +119,17 @@
             android:name=".activity.UploadGPS_Service"
             android:enabled="true"
             android:exported="true"
-            android:stopWithTask="true"/>
-
+            android:stopWithTask="true" />
         <service
             android:name=".activity.GPS_Service"
             android:enabled="true"
             android:exported="true"
-            android:stopWithTask="true"/>
-
+            android:stopWithTask="true" />
+        <service
+            android:name=".activity.GetCoordinates_Service"
+            android:enabled="true"
+            android:exported="true"
+            android:stopWithTask="true"></service>
     </application>
 
 </manifest>
