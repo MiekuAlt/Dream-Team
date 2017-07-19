@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,7 +31,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.wolkabout.hexiwear.Globals;
 import com.wolkabout.hexiwear.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -79,7 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         historicLineOptions = new PolylineOptions().color(Color.BLUE).width(20);
-        updateLineOptions = new PolylineOptions().color(Color.GREEN).width(20);
+        updateLineOptions = new PolylineOptions().color(Color.BLUE).width(20);
         send_Button = (Button) findViewById(R.id.button_send);
         if(!Globals.isCoach()){
             Button make_Button = (Button) findViewById(R.id.button_make);
@@ -107,20 +105,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         isfirstRun = false;
                     }
                     else {
-                        // }
-                        //else if(intent.getAction().equals("coordinates")){
                         Log.i(TAG, "received individual coordinates from Get_CoordinatesService");
                         Bundle bundle = intent.getExtras();
                         Coordinates coordinates = (Coordinates) bundle.getSerializable("coordinates");
                         addCoordinatesToPolyLine(coordinates);
-                        //}
                     }
                 }
             };
         }
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("array");
-        intentFilter.addAction("coordinates");
         registerReceiver(broadcastReceiver,new IntentFilter("GetCoordinates_Service"));
 
         //adds event listener for a new route being sent to athlete
@@ -166,8 +158,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
     }
-    public void clearRoutPolylines(){
 
+    /**
+     * method called when the coach wants to clear the route that they are currently editing
+     */
+    public void clearRoutPolylines(){
         routeLineOptions = new PolylineOptions();
         distance = 0;
         mostReventMarker = null;
@@ -180,7 +175,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             routeLine = null;
         }
     }
-    //clears the map
+
+    /**
+     * if the coach is editing a route then the route is erased, otherwise the whole map is cleared
+     * @param view
+     */
     public void clearMap(View view){
         if(isMakingRoute) {
             clearRoutPolylines();
@@ -222,10 +221,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param latLng
      */
     private void addRouteMarker(LatLng latLng) {
-        //send_Button.setVisibility(View.VISIBLE);
         if(mostReventMarker == null) {
             mostReventMarker = latLng;
-            //mMap.addMarker(new MarkerOptions().position(latLng).title("My Click").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).setSnippet(distance+"");
         }
         else{
             sMostRecentMarker = mostReventMarker;
@@ -235,6 +232,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     new Coordinates(mostReventMarker.longitude+"", mostReventMarker.latitude+"", 0.0+""),
                     new Coordinates(sMostRecentMarker.longitude+"", sMostRecentMarker.latitude+"", 0.0+""));
         }
+        //add the marker with the updated distance
         Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title("Distance").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         marker.setSnippet(Math.floor(distance)/1000+" KM");
         marker.showInfoWindow();
@@ -287,9 +285,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Converts the current list of displayed coordinates to a string so that they can be
      * retained after the app has been closed;
-     * @return
+     * @return string representation of the array of points in routePoints
      */
-
     private String arrayToString(){
         String result = "";
         for(LatLng l: routePoints){
@@ -326,7 +323,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         i.putExtra("Status", "false");
         sendBroadcast(i);
         Log.i(TAG, "Closing Status Sent");
-        //Toast.makeText(getApplicationContext(), "Destroyed", Toast.LENGTH_LONG).show();
-
     }
 }

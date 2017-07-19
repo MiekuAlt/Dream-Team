@@ -35,7 +35,6 @@ public class GetCoordinates_Service extends Service {
     private static final String TAG = "GetCoordinates_Service";
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("Coordinates");
-    //Context context = getApplicationContext();
     SharedPreferences sharedPreferences;
     BroadcastReceiver broadcastReceiver;
     boolean isMapsActivityOpen = false;
@@ -89,7 +88,6 @@ public class GetCoordinates_Service extends Service {
                     //MapsActivity is now running
                     if(result.equals("true")) {
                         isMapsActivityOpen = true;
-                        //isMapsActivityOpen = intent.getStringExtra("Status");
                         Intent i = new Intent("GetCoordinates_Service");
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("array", coordinatesArray);

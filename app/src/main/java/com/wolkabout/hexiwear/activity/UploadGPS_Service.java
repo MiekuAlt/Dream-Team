@@ -40,6 +40,7 @@ public class UploadGPS_Service extends Service {
         Intent i =new Intent(getApplicationContext(),GPS_Service.class);
         startService(i);
         Log.i(TAG, "service Started");
+        //register broadcast receiver to receive GPS data from GPS_Service
         if(broadcastReceiver == null){
             broadcastReceiver = new BroadcastReceiver() {
                 @Override

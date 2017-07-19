@@ -5,7 +5,7 @@ package com.wolkabout.hexiwear.activity;
  */
 
 /**
- * distance object used to receive distance form firebase
+ * Route object used to send and receive values form Firebase
  */
 public class Route {
     private String route;
