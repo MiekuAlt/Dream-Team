@@ -1,5 +1,7 @@
 package com.wolkabout.hexiwear;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -7,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.wolkabout.hexiwear.activity.GetCoordinates_Service;
 import com.wolkabout.hexiwear.activity.MapsActivity;
 import com.wolkabout.hexiwear.activity.Tracking;
 
@@ -21,6 +24,11 @@ public class TempNav extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_nav);
+        //starts the getCoordinates_Service if it is not already running
+        if(!isMyServiceRunning(GetCoordinates_Service.class)){
+            Intent i = new Intent(getApplicationContext(), GetCoordinates_Service.class);
+            startService(i);
+        }
     }
 
     /**
@@ -86,5 +94,20 @@ public class TempNav extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         getFragmentManager().popBackStack();
+    }
+
+    /**
+     * checks if a given service is running or not
+     * @param serviceClass the service in question
+     * @return a boolean, true if it is running, false otherwise
+     */
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

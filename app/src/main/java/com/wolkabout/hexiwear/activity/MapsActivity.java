@@ -1,8 +1,12 @@
 package com.wolkabout.hexiwear.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.wolkabout.hexiwear.Globals;
 import com.wolkabout.hexiwear.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("Coordinates");
-    ArrayList<LatLng> coordinateList;
+    ArrayList<Coordinates> coordinateList;
     SharedPreferences sharedPreferences;
     private static final String TAG = "Maps Activity";
     Polyline historicLine;
@@ -57,6 +62,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<Marker> markers = new ArrayList<Marker>();
     private boolean isMakingRoute = false;
     private Button send_Button;
+    private BroadcastReceiver broadcastReceiver;
+    private boolean isfirstRun = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +74,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        coordinateList= stringToArray(sharedPreferences.getString("coordinates",""));
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        //coordinateList= stringToArray(sharedPreferences.getString("coordinates",""));
 
         historicLineOptions = new PolylineOptions().color(Color.BLUE).width(20);
         updateLineOptions = new PolylineOptions().color(Color.GREEN).width(20);
@@ -77,8 +85,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Button make_Button = (Button) findViewById(R.id.button_make);
             make_Button.setVisibility(View.INVISIBLE);
         }
+        //inform GetCoordinates_Service that the activity is open
+        Intent i = new Intent("Status");
+        i.putExtra("Status", "true");
+        sendBroadcast(i);
+        Log.i(TAG, "Status Sent");
 
-        //coordinateList = new ArrayList<>();
+        if(broadcastReceiver == null){
+            broadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    Log.i(TAG, "Received intent from GetCoordinates_Service");
+                    //if(intent.getAction().equals("array")) {
+                    //checks if this is the first time receiving a broadcast since the activity started
+                    if(isfirstRun) {
+                        Log.i(TAG, "received array from Get_CoordinatesService");
+                        Bundle bundle = intent.getExtras();
+                        coordinateList = (ArrayList<Coordinates>) bundle.getSerializable("array");
+                        for (Coordinates c : coordinateList)
+                            addCoordinatesToPolyLine(c);
+                        isfirstRun = false;
+                    }
+                    else {
+                        // }
+                        //else if(intent.getAction().equals("coordinates")){
+                        Log.i(TAG, "received individual coordinates from Get_CoordinatesService");
+                        Bundle bundle = intent.getExtras();
+                        Coordinates coordinates = (Coordinates) bundle.getSerializable("coordinates");
+                        addCoordinatesToPolyLine(coordinates);
+                        //}
+                    }
+                }
+            };
+        }
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("array");
+        intentFilter.addAction("coordinates");
+        registerReceiver(broadcastReceiver,new IntentFilter("GetCoordinates_Service"));
     }
 
     /**
@@ -94,6 +137,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng halifax = new LatLng(44.651070, -63.582687);
         //mMap.addMarker(new MarkerOptions().position(halifax).title("Marker in Halifax"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(halifax,13));
+        /*
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -104,6 +148,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+        */
         //allows user to create custom routes on Map
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
@@ -132,8 +177,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             clearRoutPolylines();
             send_Button.setVisibility(View.INVISIBLE);
         }
-        else
+        else {
             mMap.clear();
+            sharedPreferences.edit().remove("coordinates").commit();
+            Intent i = new Intent("Status");
+            i.putExtra("Status", "clear");
+            sendBroadcast(i);
+            Log.i(TAG, "Clear Request Sent");
+        }
     }
     /**
      * used to set the route and disable editing
@@ -188,7 +239,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void addCoordinatesToPolyLine(Coordinates coordinates){
         //mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()));
-        coordinateList.add(coordinates.toLatLng());
+        //coordinateList.add(coordinates.toLatLng());
         mMap.addMarker(new MarkerOptions().position(coordinates.toLatLng()).icon(BitmapDescriptorFactory.fromResource(R.drawable.hello_kitty)));
         Log.i(TAG, coordinates.toLatLng().toString());
         if(numCoordinates <2){
@@ -214,6 +265,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     protected void onResume() {
         super.onResume();
+        /*
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -224,8 +276,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
         });
+        */
     }
 
     /**
@@ -233,6 +285,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * retained after the app has been closed;
      * @return
      */
+    /*
     private String arrayToString(){
         String result = "";
         for(LatLng l: coordinateList){
@@ -240,7 +293,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         return result;
     }
-
+    */
     /**
      * reverts the changes of arrayToString() by converting the string into an arraylist of coordinates.
      * @param s
@@ -260,7 +313,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onPause();
         sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("coordinates", arrayToString());
+        //editor.putString("coordinates", arrayToString());
         editor.commit();
         //Toast.makeText(getApplicationContext(), "Paused", Toast.LENGTH_LONG).show();
     }
@@ -268,7 +321,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Toast.makeText(getApplicationContext(), "Destroyed", Toast.LENGTH_LONG).show();
+        if(broadcastReceiver != null)
+            unregisterReceiver(broadcastReceiver);
+        //Toast.makeText(getApplicationContext(), "Destroyed", Toast.LENGTH_LONG).show();
 
     }
 }

@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +35,8 @@ public class GetCoordinates_Service extends Service {
     private static final String TAG = "GetCoordinates_Service";
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("Coordinates");
-    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    //Context context = getApplicationContext();
+    SharedPreferences sharedPreferences;
     BroadcastReceiver broadcastReceiver;
     boolean isMapsActivityOpen = false;
     ArrayList<Coordinates> coordinatesArray = new ArrayList<>();
@@ -47,9 +49,11 @@ public class GetCoordinates_Service extends Service {
 
     @Override
     public void onCreate() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         coordinatesArray = stringToArray(sharedPreferences.getString("coordinates",""));
         Log.i(TAG, "GetCoordinates_Service Created");
-        //listens for coordinate updates in firebase
+        //listens for coordinate updates in firebase and sends them to the MapsActivity if it is open
+        //otherwise it stores them
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -62,22 +66,31 @@ public class GetCoordinates_Service extends Service {
                     bundle.putSerializable("coordinates", coordinates);
                     i.putExtras(bundle);
                     sendBroadcast(i);
+                    Log.i(TAG, "Individual Coordinates Sent");
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-        //receives message from MapsActivity that it is open and sends it all stored coordinates
+        //receives message from MapsActivity that it is open and sends it all stored coordinates or that
+        //it is requesting that the list of coordinates on the map be cleared
         if(broadcastReceiver == null){
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    isMapsActivityOpen = intent.getExtras().getBoolean("Status");
-                    Intent i = new Intent("GetCoordinatesService");
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("array", coordinatesArray);
-                    i.putExtras(bundle);
-                    sendBroadcast(i);
+                    String result = intent.getStringExtra("Status");
+                    if(result.equals("true")) {
+                        isMapsActivityOpen = true;
+                        //isMapsActivityOpen = intent.getStringExtra("Status");
+                        Intent i = new Intent("GetCoordinates_Service");
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("array", coordinatesArray);
+                        i.putExtras(bundle);
+                        sendBroadcast(i);
+                        Log.i(TAG, "Array of Coordinates Sent");
+                    }
+                    else if(result.equals("clear"))
+                        coordinatesArray.clear();
                 }
             };
         }
