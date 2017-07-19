@@ -89,7 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent i = new Intent("Status");
         i.putExtra("Status", "true");
         sendBroadcast(i);
-        Log.i(TAG, "Status Sent");
+        Log.i(TAG, "Opening Status Sent");
 
         if(broadcastReceiver == null){
             broadcastReceiver = new BroadcastReceiver() {
@@ -124,23 +124,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         registerReceiver(broadcastReceiver,new IntentFilter("GetCoordinates_Service"));
 
         //adds event listener for a new route being sent to athlete
-        if(!Globals.isCoach()) {
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Route route = dataSnapshot.getValue(Route.class);
-                    if(route != null)
-                        routePoints = stringToArray(route.getRoute());
-                    for (LatLng l : routePoints)
-                        routeLineOptions.add(l).color(Color.GREEN).width(20);
-                    mMap.addPolyline(routeLineOptions);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Route route = dataSnapshot.getValue(Route.class);
+                if(route != null)
+                    routePoints = stringToArray(route.getRoute());
+                for (LatLng l : routePoints) {
+                    routeLineOptions.add(l).color(Color.GREEN).width(20);
+                    Log.i(TAG, "parsing element of received route" + l.toString());
                 }
+                routeLine = mMap.addPolyline(routeLineOptions);
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
     }
 
@@ -164,6 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     addRouteMarker(latLng);
             }
         });
+
     }
     public void clearRoutPolylines(){
 
@@ -171,7 +172,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         distance = 0;
         mostReventMarker = null;
         sMostRecentMarker = null;
-        markers.clear();
+        for(Marker m: markers)
+            m.remove();
         routePoints.clear();
         if(routeLine != null) {
             routeLine.remove();
@@ -194,31 +196,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
     /**
-     * used to set the route and disable editing
+     * used to set the route and disable editing also, uploads the route to firebase
      * @param view
      */
     public void sendRoute(View view){
         if(markers.size() >0) {
-            markers.clear();
+            for(Marker m: markers)
+                m.remove();
             //upload the route to firebase
-            ref.setValue(new Route(arrayToString()));
             routeLineOptions.color(Color.GREEN).width(20);
             routeLine.remove();
             routeLine = mMap.addPolyline(routeLineOptions);
-            send_Button.setVisibility(View.INVISIBLE);
-            isMakingRoute = false;
         }
+        ref.setValue(new Route(arrayToString(), Math.floor(distance)/1000+" KM"));
+        send_Button.setVisibility(View.INVISIBLE);
+        isMakingRoute = false;
     }
     public void makeRoute(View view){
         isMakingRoute = true;
         clearRoutPolylines();
+        send_Button.setVisibility(View.VISIBLE);
     }
     /**
      * adds marker to the map that the user selected and updates the polyline and the distance ignoring altitude values
      * @param latLng
      */
     private void addRouteMarker(LatLng latLng) {
-        send_Button.setVisibility(View.VISIBLE);
+        //send_Button.setVisibility(View.VISIBLE);
         if(mostReventMarker == null) {
             mostReventMarker = latLng;
             //mMap.addMarker(new MarkerOptions().position(latLng).title("My Click").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).setSnippet(distance+"");
@@ -269,8 +273,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             historicLineOptions.add(mostRecent);
             sMostRecent = mostRecent;
             mostRecent = coordinates.toLatLng();
-            updateLineOptions = new PolylineOptions().add(sMostRecent).add(mostRecent).color(Color.GREEN).width(20);
+            updateLineOptions = new PolylineOptions().add(sMostRecent).add(mostRecent).color(Color.BLUE).width(20);
         }
+        if(historicLine != null)
+            historicLine.remove();
+        if(updatetLine != null)
+            updatetLine.remove();
         historicLine = mMap.addPolyline(historicLineOptions);
         updatetLine = mMap.addPolyline(updateLineOptions);
     }
@@ -287,7 +295,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String arrayToString(){
         String result = "";
         for(LatLng l: routePoints){
-            result += l.longitude + " " + l.latitude + " ";
+            result += l.latitude + " " + l.longitude + " ";
         }
         return result;
     }
@@ -322,6 +330,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onDestroy();
         if(broadcastReceiver != null)
             unregisterReceiver(broadcastReceiver);
+        Intent i = new Intent("Status");
+        i.putExtra("Status", "false");
+        sendBroadcast(i);
+        Log.i(TAG, "Closing Status Sent");
         //Toast.makeText(getApplicationContext(), "Destroyed", Toast.LENGTH_LONG).show();
 
     }

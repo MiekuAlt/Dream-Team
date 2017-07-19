@@ -40,6 +40,7 @@ public class GetCoordinates_Service extends Service {
     BroadcastReceiver broadcastReceiver;
     boolean isMapsActivityOpen = false;
     ArrayList<Coordinates> coordinatesArray = new ArrayList<>();
+    private boolean isFirstCallToFirebase = true;
 
     @Nullable
     @Override
@@ -57,16 +58,20 @@ public class GetCoordinates_Service extends Service {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Coordinates coordinates = dataSnapshot.getValue(Coordinates.class);
-                coordinatesArray.add(coordinates);
-                //sends the Maps Activity the next Coordinates if it is open
-                if(isMapsActivityOpen){
-                    Intent i = new Intent("GetCoordinates_Service");
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("coordinates", coordinates);
-                    i.putExtras(bundle);
-                    sendBroadcast(i);
-                    Log.i(TAG, "Individual Coordinates Sent");
+                if (isFirstCallToFirebase)
+                    isFirstCallToFirebase = false;
+                else {
+                    Coordinates coordinates = dataSnapshot.getValue(Coordinates.class);
+                    coordinatesArray.add(coordinates);
+                    //sends the Maps Activity the next Coordinates if it is open
+                    if (isMapsActivityOpen) {
+                        Intent i = new Intent("GetCoordinates_Service");
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("coordinates", coordinates);
+                        i.putExtras(bundle);
+                        sendBroadcast(i);
+                        Log.i(TAG, "Individual Coordinates Sent");
+                    }
                 }
             }
             @Override
@@ -91,6 +96,8 @@ public class GetCoordinates_Service extends Service {
                     }
                     else if(result.equals("clear"))
                         coordinatesArray.clear();
+                    else if(result.equals("false"))
+                        isMapsActivityOpen = false;
                 }
             };
         }

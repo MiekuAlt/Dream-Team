@@ -40,13 +40,15 @@ public class Tracking extends AppCompatActivity {
         button_tracking = (Button) findViewById(R.id.button_tracking);
         if(Globals.isCoach())
             button_tracking.setVisibility(View.INVISIBLE);
-        if (savedInstanceState != null){
-            Log.i(TAG, "Saved instance is not NULL");
-            button_tracking.setText(savedInstanceState.getString("btn_text"));
-        }
+
+        if(!isMyServiceRunning(UploadGPS_Service.class))
+            button_tracking.setText("Start Tracking");
+        else
+            button_tracking.setText("Stop Tracking");
+
         //allows state to be maintained on activity being destroyed
         sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        button_tracking.setText(sharedPreferences.getString("btn_name","START TRACKING"));
+        //button_tracking.setText(sharedPreferences.getString("btn_name","START TRACKING"));
         isTracking = sharedPreferences.getBoolean("isTracking", false);
 
         button_tracking.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +139,7 @@ public class Tracking extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         Log.i(TAG, "in on restore");
-        button_tracking.setText(savedInstanceState.getString("btn_text"));
+        //button_tracking.setText(savedInstanceState.getString("btn_text"));
     }
 
     @Override
@@ -148,6 +150,6 @@ public class Tracking extends AppCompatActivity {
         editor.putString("btn_name", button_tracking.getText().toString());
         editor.putBoolean("isTracking", isTracking);
         editor.commit();
-        Toast.makeText(getApplicationContext(), "Saved Preferences", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Saved Preferences", Toast.LENGTH_LONG).show();
     }
 }

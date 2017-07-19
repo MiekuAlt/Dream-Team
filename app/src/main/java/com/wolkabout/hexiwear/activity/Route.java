@@ -9,7 +9,12 @@ package com.wolkabout.hexiwear.activity;
  */
 public class Route {
     private String route;
+    private String distance;
     public Route(){}
-    public Route(String route){this.route = route;}
+    public Route(String route, String distance){
+        this.route = route;
+        this.distance = distance;
+    }
     public String getRoute(){return route;}
+    public String getDistance(){return  distance;}
 }
