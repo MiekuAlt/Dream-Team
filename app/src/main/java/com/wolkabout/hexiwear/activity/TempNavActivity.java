@@ -25,6 +25,11 @@ import static com.wolkabout.hexiwear.R.id.filler7;
 import static com.wolkabout.hexiwear.R.id.mapBut;
 import static com.wolkabout.hexiwear.R.id.uploadGPS;
 
+import static com.wolkabout.hexiwear.R.id.filler3;
+import static com.wolkabout.hexiwear.R.id.filler4;
+import static com.wolkabout.hexiwear.R.id.mapBut;
+import static com.wolkabout.hexiwear.R.id.uploadGPS;
+
 /**
  * Used to provide temporary access to the different activities the team is working on
  *
@@ -51,16 +56,19 @@ public class TempNavActivity extends AppCompatActivity {
         super.onResume();
         Button mapButton;
         Button GPSButton;
-        View spaces;
+        View filler1;
+        View filler2;
 
-        if(Globals.isCoach()) { //if the user is not the coach
-            //mapButton = (Button) findViewById(mapBut);
+        if(!Globals.isCoach()) { //if the user is not the coach
+            mapButton = (Button) findViewById(mapBut);
             GPSButton = (Button) findViewById(uploadGPS);
-            spaces = (View) findViewById(filler7);
+            filler1 = (View) findViewById(filler3);
+            filler2 = (View) findViewById(filler4);
 
-            GPSButton.setVisibility(View.GONE);
-            spaces.setVisibility(View.GONE);
-            //mapButton.setVisibility(View.GONE); //get rid of the map button
+            mapButton.setVisibility(View.GONE); //get rid of the map button
+            GPSButton.setVisibility(View.GONE); //get rid of the GPS button
+            filler1.setVisibility(View.GONE); //get rid of the first filler space
+            filler2.setVisibility(View.GONE); //get rid of the second filler space
         }
     }
 
