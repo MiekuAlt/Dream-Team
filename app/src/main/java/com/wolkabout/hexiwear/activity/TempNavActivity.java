@@ -15,14 +15,7 @@ import com.wolkabout.hexiwear.fragment.ChatFragment;
 import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.service.GetCoordinates_Service;
 
-import static com.wolkabout.hexiwear.R.id.filler3;
-import static com.wolkabout.hexiwear.R.id.filler4;
-import static com.wolkabout.hexiwear.R.id.mapBut;
-import static com.wolkabout.hexiwear.R.id.uploadGPS;
-
-import static com.wolkabout.hexiwear.R.id.filler3;
-import static com.wolkabout.hexiwear.R.id.filler4;
-import static com.wolkabout.hexiwear.R.id.mapBut;
+import static com.wolkabout.hexiwear.R.id.filler7;
 import static com.wolkabout.hexiwear.R.id.uploadGPS;
 
 /**
@@ -49,21 +42,15 @@ public class TempNavActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Button mapButton;
         Button GPSButton;
-        View filler1;
-        View filler2;
+        View space;
 
-        if(!Globals.isCoach()) { //if the user is not the coach
-            mapButton = (Button) findViewById(mapBut);
+        if(Globals.isCoach()) { //if the user is the coach
             GPSButton = (Button) findViewById(uploadGPS);
-            filler1 = (View) findViewById(filler3);
-            filler2 = (View) findViewById(filler4);
+            space = (View) findViewById(filler7);
 
-            mapButton.setVisibility(View.GONE); //get rid of the map button
             GPSButton.setVisibility(View.GONE); //get rid of the GPS button
-            filler1.setVisibility(View.GONE); //get rid of the first filler space
-            filler2.setVisibility(View.GONE); //get rid of the second filler space
+            space.setVisibility(View.GONE); //get rid of the filler space
         }
     }
 
