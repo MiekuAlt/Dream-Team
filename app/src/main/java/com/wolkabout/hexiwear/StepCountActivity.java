@@ -1,8 +1,10 @@
 package com.wolkabout.hexiwear;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -160,6 +162,11 @@ public class StepCountActivity extends AppCompatActivity {
         //Creates a date and sets the value in the database on the date to the max rate
         databaseHistoricStepCount.child(date).setValue(steps);
 
+    }
+
+    public void notification(View view){
+        Intent intent = new Intent(this, Notification.class);
+        startActivity(intent);
     }
 
 }

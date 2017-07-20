@@ -93,6 +93,7 @@
         <activity android:name=".activity.Tracking" />
         <activity android:name=".ChooseUserActivity" />
         <activity android:name=".SetRanges" />
+        <activity android:name=".Notification"/>
 
         <service
             android:name=".activity.UploadGPS_Service"

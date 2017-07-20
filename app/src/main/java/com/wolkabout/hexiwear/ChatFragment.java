@@ -16,6 +16,7 @@
 
 package com.wolkabout.hexiwear;
 
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.wolkabout.hexiwear.service.BluetoothService;
 
@@ -157,8 +159,10 @@ public class ChatFragment extends Fragment {
             String id = mMessageDatabase.push().getKey();
             if(Globals.isCoach()) {
                 mMessageDatabase.child(id).setValue("Coach:  " + msg);
+
             } else {
                 mMessageDatabase.child(id).setValue("Athlete: " + msg);
+
             }
             mToSendEditText.setText("");
 
@@ -179,6 +183,8 @@ public class ChatFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
     }
+
+
 
 
 }
