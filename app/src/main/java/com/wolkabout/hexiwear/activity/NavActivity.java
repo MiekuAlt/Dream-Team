@@ -23,12 +23,12 @@ import static com.wolkabout.hexiwear.R.id.uploadGPS;
  *
  * @author Michael Altair
  */
-public class TempNavActivity extends AppCompatActivity {
+public class NavActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_temp_nav);
+        setContentView(R.layout.activity_nav);
         //starts the getCoordinates_Service if it is not already running
         if(!isMyServiceRunning(GetCoordinates_Service.class)){
             Intent i = new Intent(getApplicationContext(), GetCoordinates_Service.class);

@@ -405,7 +405,7 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
 
     // New code for the temp navigation
     public void goTempNav(View view) {
-        Intent intent = new Intent(this, TempNavActivity.class);
+        Intent intent = new Intent(this, NavActivity.class);
         startActivity(intent);
     }
 }

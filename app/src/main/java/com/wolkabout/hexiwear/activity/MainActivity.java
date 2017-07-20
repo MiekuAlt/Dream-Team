@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 
     // New code for the temp navigation
     public void goTempNav(View view) {
-        Intent intent = new Intent(this, TempNavActivity.class);
+        Intent intent = new Intent(this, NavActivity.class);
         startActivity(intent);
     }
 

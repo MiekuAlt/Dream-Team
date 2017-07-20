@@ -6,7 +6,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.wolkabout.hexiwear.R;
-import com.wolkabout.hexiwear.activity.TempNavActivity;
+import com.wolkabout.hexiwear.activity.NavActivity;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -35,8 +35,8 @@ public class ChatTests {
     private String testText;
 
     @Rule
-    public ActivityTestRule<TempNavActivity> mActivityRule = new IntentsTestRule<TempNavActivity>(
-            TempNavActivity.class);
+    public ActivityTestRule<NavActivity> mActivityRule = new IntentsTestRule<NavActivity>(
+            NavActivity.class);
 
     @Before
     public void init(){

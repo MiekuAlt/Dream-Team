@@ -11,7 +11,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.activity.StepCountActivity;
-import com.wolkabout.hexiwear.activity.TempNavActivity;
+import com.wolkabout.hexiwear.activity.NavActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -24,8 +24,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 public class EspressoTestTests {
 
     @Rule
-    public ActivityTestRule<TempNavActivity> mActivityRule = new IntentsTestRule<TempNavActivity>(
-            TempNavActivity.class);
+    public ActivityTestRule<NavActivity> mActivityRule = new IntentsTestRule<NavActivity>(
+            NavActivity.class);
 
     @Test
     public void opensActivity() { //checks if step counter activity is opened when corresponding button clicked

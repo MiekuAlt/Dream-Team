@@ -35,7 +35,7 @@ import static org.hamcrest.Matchers.allOf;
 public class AppNameTest {
 
     @Rule
-    public ActivityTestRule<TempNavActivity> mActivityTestRule = new ActivityTestRule<>(TempNavActivity.class);
+    public ActivityTestRule<NavActivity> mActivityTestRule = new ActivityTestRule<>(NavActivity.class);
 
     @Test
     public void appNameTest() {
