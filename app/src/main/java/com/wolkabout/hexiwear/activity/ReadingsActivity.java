@@ -40,7 +40,6 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.wolkabout.hexiwear.R;
-import com.wolkabout.hexiwear.TempNav;
 import com.wolkabout.hexiwear.model.Characteristic;
 import com.wolkabout.hexiwear.model.HeartRate;
 import com.wolkabout.hexiwear.model.HexiwearDevice;
@@ -406,7 +405,7 @@ public class ReadingsActivity extends AppCompatActivity implements ServiceConnec
 
     // New code for the temp navigation
     public void goTempNav(View view) {
-        Intent intent = new Intent(this, TempNav.class);
+        Intent intent = new Intent(this, TempNavActivity.class);
         startActivity(intent);
     }
 }

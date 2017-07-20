@@ -71,9 +71,9 @@
             android:name=".service.NotificationService_"
             android:exported="false" />
 
-        <activity android:name=".TempNav" />
-        <activity android:name=".StepCountActivity" />
-        <activity android:name=".HeartRateActivity" />
+        <activity android:name=".activity.TempNavActivity" />
+        <activity android:name=".activity.StepCountActivity" />
+        <activity android:name=".activity.HeartRateActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -90,8 +90,8 @@
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".activity.TrackingActivity" />
-        <activity android:name=".ChooseUserActivity" />
-        <activity android:name=".SetRanges" />
+        <activity android:name=".activity.ChooseUserActivity" />
+        <activity android:name=".activity.SetRangesActivity" />
 
         <service
             android:name=".service.UploadGPS_Service"

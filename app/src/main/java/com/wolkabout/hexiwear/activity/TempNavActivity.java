@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear;
+package com.wolkabout.hexiwear.activity;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -9,16 +9,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.wolkabout.hexiwear.fragment.ChatFragment;
+import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.service.GetCoordinates_Service;
-import com.wolkabout.hexiwear.activity.MapsActivity;
-import com.wolkabout.hexiwear.activity.TrackingActivity;
 
 /**
  * Used to provide temporary access to the different activities the team is working on
  *
  * @author Michael Altair
  */
-public class TempNav extends AppCompatActivity {
+public class TempNavActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class TempNav extends AppCompatActivity {
      *  Takes the user to the Range Activity
      */
     public void goRange(View view) {
-        Intent intent = new Intent(this, SetRanges.class);
+        Intent intent = new Intent(this, SetRangesActivity.class);
         startActivity(intent);
     }
     /**

@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear;
+package com.wolkabout.hexiwear.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.wolkabout.hexiwear.R;
 
 import static com.wolkabout.hexiwear.R.layout.activity_set_range;
 
@@ -19,7 +20,7 @@ import static com.wolkabout.hexiwear.R.layout.activity_set_range;
  * @author Sitanun Changhor (Dream)
  */
 
-public class SetRanges extends AppCompatActivity {
+public class SetRangesActivity extends AppCompatActivity {
     DatabaseReference databaseMinHeartRange;
     DatabaseReference databaseMaxHeartRange;
 

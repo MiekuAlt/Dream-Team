@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear;
+package com.wolkabout.hexiwear.activity;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -16,6 +16,8 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.wolkabout.hexiwear.model.Globals;
+import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.model.HeartRate;
 import com.wolkabout.hexiwear.model.MaxHeartRange;
 import com.wolkabout.hexiwear.model.MinHeartRange;

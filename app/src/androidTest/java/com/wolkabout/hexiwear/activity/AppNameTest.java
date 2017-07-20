@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.wolkabout.hexiwear.R;
-import com.wolkabout.hexiwear.TempNav;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -36,7 +35,7 @@ import static org.hamcrest.Matchers.allOf;
 public class AppNameTest {
 
     @Rule
-    public ActivityTestRule<TempNav> mActivityTestRule = new ActivityTestRule<>(TempNav.class);
+    public ActivityTestRule<TempNavActivity> mActivityTestRule = new ActivityTestRule<>(TempNavActivity.class);
 
     @Test
     public void appNameTest() {

@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.wolkabout.hexiwear.Globals;
+import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.service.GPS_Service;
 import com.wolkabout.hexiwear.service.UploadGPS_Service;

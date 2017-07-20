@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wolkabout.hexiwear;
+package com.wolkabout.hexiwear.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,6 +33,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wolkabout.hexiwear.R;
+import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.service.BluetoothService;
 
 

@@ -1,10 +1,13 @@
-package com.wolkabout.hexiwear;
+package com.wolkabout.hexiwear.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
+
+import com.wolkabout.hexiwear.model.Globals;
+import com.wolkabout.hexiwear.R;
 
 /**
  * This activity's purpose is to allow the user to choose whether they are accessing the app as either the Coach or the Athlete
@@ -60,7 +63,7 @@ public class ChooseUserActivity extends AppCompatActivity {
         Globals.setCoach(radioCoach.isChecked());
 
         // Go to the navigator when updated
-        Intent intent = new Intent(this, TempNav.class);
+        Intent intent = new Intent(this, TempNavActivity.class);
         startActivity(intent);
     }
 

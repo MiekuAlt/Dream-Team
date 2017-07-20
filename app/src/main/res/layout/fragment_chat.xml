@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.wolkabout.hexiwear.ChatFragment">
+    tools:context="com.wolkabout.hexiwear.fragment.ChatFragment">
 
     <ListView
         android:id="@+id/message_view"
