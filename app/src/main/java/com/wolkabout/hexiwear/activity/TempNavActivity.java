@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.wolkabout.hexiwear.fragment.ChatFragment;
 import com.wolkabout.hexiwear.R;
+import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.service.GetCoordinates_Service;
 
 import static com.wolkabout.hexiwear.R.id.filler3;

@@ -11,6 +11,9 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.wolkabout.hexiwear.activity.StepCountActivity;
+import com.wolkabout.hexiwear.fragment.ChatFragment;
+
 
 /**
  * Created by shuchenxin on 2017-07-18.
