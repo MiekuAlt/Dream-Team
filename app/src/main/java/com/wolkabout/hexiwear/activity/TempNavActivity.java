@@ -8,10 +8,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.wolkabout.hexiwear.fragment.ChatFragment;
 import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.service.GetCoordinates_Service;
+
+import static com.wolkabout.hexiwear.R.id.filler3;
+import static com.wolkabout.hexiwear.R.id.filler4;
+import static com.wolkabout.hexiwear.R.id.mapBut;
+import static com.wolkabout.hexiwear.R.id.uploadGPS;
 
 /**
  * Used to provide temporary access to the different activities the team is working on
@@ -28,6 +34,30 @@ public class TempNavActivity extends AppCompatActivity {
         if(!isMyServiceRunning(GetCoordinates_Service.class)){
             Intent i = new Intent(getApplicationContext(), GetCoordinates_Service.class);
             startService(i);
+        }
+    }
+
+    /**
+     * On starting or resuming the activity, hides the coach-specific buttons from the athlete
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Button mapButton;
+        Button GPSButton;
+        View filler1;
+        View filler2;
+
+        if(!Globals.isCoach()) { //if the user is not the coach
+            mapButton = (Button) findViewById(mapBut);
+            GPSButton = (Button) findViewById(uploadGPS);
+            filler1 = (View) findViewById(filler3);
+            filler2 = (View) findViewById(filler4);
+
+            mapButton.setVisibility(View.GONE); //get rid of the map button
+            GPSButton.setVisibility(View.GONE); //get rid of the GPS button
+            filler1.setVisibility(View.GONE); //get rid of the first filler space
+            filler2.setVisibility(View.GONE); //get rid of the second filler space
         }
     }
 

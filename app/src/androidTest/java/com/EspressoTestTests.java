@@ -18,7 +18,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -35,4 +34,10 @@ public class EspressoTestTests {
         //intended(hasComponent(MainActivity.class.getName()));
     }
 
+    /**
+     * Created by Nathan on 2017-07-20.
+     */
+
+    public static class CoachAthleteTests {
+    }
 }
