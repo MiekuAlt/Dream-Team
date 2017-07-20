@@ -20,6 +20,11 @@ import static com.wolkabout.hexiwear.R.id.filler4;
 import static com.wolkabout.hexiwear.R.id.mapBut;
 import static com.wolkabout.hexiwear.R.id.uploadGPS;
 
+import static com.wolkabout.hexiwear.R.id.filler3;
+import static com.wolkabout.hexiwear.R.id.filler4;
+import static com.wolkabout.hexiwear.R.id.mapBut;
+import static com.wolkabout.hexiwear.R.id.uploadGPS;
+
 /**
  * Used to provide temporary access to the different activities the team is working on
  *

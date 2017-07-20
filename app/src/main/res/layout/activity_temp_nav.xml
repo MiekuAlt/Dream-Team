@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/hk_background"
     android:orientation="horizontal"
     tools:context="com.wolkabout.hexiwear.activity.TempNavActivity">
     <FrameLayout
