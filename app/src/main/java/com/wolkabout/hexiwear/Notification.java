@@ -42,4 +42,21 @@ public class Notification extends AppCompatActivity {
         mNotificationManager.notify(0, mBuilder.build());
     }
 
+    public void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.hello_kitty)
+                        .setContentTitle("Notifications Example")
+                        .setContentText("This is a test notification");
+
+        //Intent notificationIntent = new Intent(this, this.getClass());
+        //PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+        //        PendingIntent.FLAG_UPDATE_CURRENT);
+        //builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
+
 }

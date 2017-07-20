@@ -168,7 +168,8 @@ public class StepCountActivity extends AppCompatActivity {
 
     public void notification(View view){
         Intent intent = new Intent(this, Notification.class);
-        startActivity( intent );
+        startActivity(intent);
     }
+
 
 }

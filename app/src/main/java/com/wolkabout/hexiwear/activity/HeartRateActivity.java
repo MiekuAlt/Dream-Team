@@ -1,9 +1,13 @@
 package com.wolkabout.hexiwear.activity;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -16,8 +20,8 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.R;
+import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.model.HeartRate;
 import com.wolkabout.hexiwear.model.MaxHeartRange;
 import com.wolkabout.hexiwear.model.MinHeartRange;
@@ -228,11 +232,30 @@ public class HeartRateActivity extends AppCompatActivity {
             // Vibrates the coach's phone if out of range
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(400);
+            addNotification();
         } else {
             // Vibrates the athlete's watch if out of range
             BluetoothService bs = new BluetoothService();
             bs.vibrateWatch(2);
+            addNotification();
         }
+    }
+
+    public void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.hello_kitty)
+                        .setContentTitle("Heart Rate Alert!")
+                        .setContentText("Heart Rate is out of bounds!");
+
+        Intent notificationIntent = new Intent(this, this.getClass());
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
 
 }

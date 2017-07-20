@@ -3,27 +3,17 @@ package com.wolkabout.hexiwear.activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.wolkabout.hexiwear.fragment.ChatFragment;
 import com.wolkabout.hexiwear.R;
+import com.wolkabout.hexiwear.fragment.ChatFragment;
 import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.service.GetCoordinates_Service;
-
-import static com.wolkabout.hexiwear.R.id.filler1;
-import static com.wolkabout.hexiwear.R.id.filler2;
-import static com.wolkabout.hexiwear.R.id.filler3;
-import static com.wolkabout.hexiwear.R.id.filler4;
-import static com.wolkabout.hexiwear.R.id.filler5;
-import static com.wolkabout.hexiwear.R.id.filler6;
-import static com.wolkabout.hexiwear.R.id.filler7;
-import static com.wolkabout.hexiwear.R.id.mapBut;
-import static com.wolkabout.hexiwear.R.id.uploadGPS;
 
 import static com.wolkabout.hexiwear.R.id.filler3;
 import static com.wolkabout.hexiwear.R.id.filler4;
