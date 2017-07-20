@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear.activity;
+package com.wolkabout.hexiwear.service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -6,23 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wolkabout.hexiwear.model.Coordinates;
 
 import java.util.ArrayList;
 import java.util.Scanner;

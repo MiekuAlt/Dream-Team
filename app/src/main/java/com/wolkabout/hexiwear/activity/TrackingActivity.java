@@ -17,13 +17,15 @@ import android.widget.Toast;
 
 import com.wolkabout.hexiwear.Globals;
 import com.wolkabout.hexiwear.R;
+import com.wolkabout.hexiwear.service.GPS_Service;
+import com.wolkabout.hexiwear.service.UploadGPS_Service;
 
 /**
  * activity that allows the user to enable tracking. Once it is enabled the phone's GPS
  * coordinates are submitted to Firebase on a consistent basis and then dispalyed on the
  * MapsActivity
  */
-public class Tracking extends AppCompatActivity {
+public class TrackingActivity extends AppCompatActivity {
     private Button button_tracking;
     boolean isTracking = false;
     private static final String TAG = "tracking";

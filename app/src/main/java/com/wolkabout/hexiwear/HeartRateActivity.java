@@ -16,9 +16,9 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.wolkabout.hexiwear.activity.HeartRate;
-import com.wolkabout.hexiwear.activity.MaxHeartRange;
-import com.wolkabout.hexiwear.activity.MinHeartRange;
+import com.wolkabout.hexiwear.model.HeartRate;
+import com.wolkabout.hexiwear.model.MaxHeartRange;
+import com.wolkabout.hexiwear.model.MinHeartRange;
 import com.wolkabout.hexiwear.service.BluetoothService;
 
 import java.text.SimpleDateFormat;

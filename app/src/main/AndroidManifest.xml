@@ -89,23 +89,22 @@
         <activity
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".activity.uploadGPS" />
-        <activity android:name=".activity.Tracking" />
+        <activity android:name=".activity.TrackingActivity" />
         <activity android:name=".ChooseUserActivity" />
         <activity android:name=".SetRanges" />
 
         <service
-            android:name=".activity.UploadGPS_Service"
+            android:name=".service.UploadGPS_Service"
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="true" />
         <service
-            android:name=".activity.GPS_Service"
+            android:name=".service.GPS_Service"
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="true" />
         <service
-            android:name=".activity.GetCoordinates_Service"
+            android:name=".service.GetCoordinates_Service"
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="true"></service>

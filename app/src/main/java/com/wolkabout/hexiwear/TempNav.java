@@ -9,9 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.wolkabout.hexiwear.activity.GetCoordinates_Service;
+import com.wolkabout.hexiwear.service.GetCoordinates_Service;
 import com.wolkabout.hexiwear.activity.MapsActivity;
-import com.wolkabout.hexiwear.activity.Tracking;
+import com.wolkabout.hexiwear.activity.TrackingActivity;
 
 /**
  * Used to provide temporary access to the different activities the team is working on
@@ -83,7 +83,7 @@ public class TempNav extends AppCompatActivity {
      *  Takes the user to the GPS Activity
      */
     public void goGPS(View view) {
-        Intent intent = new Intent(this, Tracking.class);
+        Intent intent = new Intent(this, TrackingActivity.class);
         startActivity(intent);
     }
 
