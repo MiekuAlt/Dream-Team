@@ -63,7 +63,7 @@ public class ChooseUserActivity extends AppCompatActivity {
         Globals.setCoach(radioCoach.isChecked());
 
         // Go to the navigator when updated
-        Intent intent = new Intent(this, TempNavActivity.class);
+        Intent intent = new Intent(this, NavActivity.class);
         startActivity(intent);
     }
 

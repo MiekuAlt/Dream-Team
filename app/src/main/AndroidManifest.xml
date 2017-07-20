@@ -71,7 +71,7 @@
             android:name=".service.NotificationService_"
             android:exported="false" />
 
-        <activity android:name=".activity.TempNavActivity" />
+        <activity android:name=".activity.NavActivity" />
         <activity android:name=".activity.StepCountActivity" />
         <activity android:name=".activity.HeartRateActivity" />
         <!--

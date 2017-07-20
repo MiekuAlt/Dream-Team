@@ -7,7 +7,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.wolkabout.hexiwear.R;
-import com.wolkabout.hexiwear.activity.TempNavActivity;
+import com.wolkabout.hexiwear.activity.NavActivity;
 
 
 import org.junit.FixMethodOrder;
@@ -33,7 +33,7 @@ import static android.support.test.espresso.Espresso.onView;
 public class MainNavigationTests {
 
     @Rule
-    public ActivityTestRule<TempNavActivity> mActivityRule = new ActivityTestRule<>(TempNavActivity.class);
+    public ActivityTestRule<NavActivity> mActivityRule = new ActivityTestRule<>(NavActivity.class);
 
     @Test
     public void buttonsWork(){
