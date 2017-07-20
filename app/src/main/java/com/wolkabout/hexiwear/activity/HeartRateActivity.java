@@ -241,6 +241,9 @@ public class HeartRateActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This, when triggered builds and displays a notification that the athlete's heart rate is out of range
+     */
     public void addNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
