@@ -28,8 +28,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.wolkabout.hexiwear.Globals;
+import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.R;
+import com.wolkabout.hexiwear.model.Coordinates;
+import com.wolkabout.hexiwear.model.Route;
+import com.wolkabout.hexiwear.service.UploadGPS_Service;
 
 import java.util.ArrayList;
 import java.util.Scanner;

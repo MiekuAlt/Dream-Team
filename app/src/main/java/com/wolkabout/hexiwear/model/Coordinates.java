@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear.activity;
+package com.wolkabout.hexiwear.model;
 
 import com.google.android.gms.maps.model.LatLng;
 

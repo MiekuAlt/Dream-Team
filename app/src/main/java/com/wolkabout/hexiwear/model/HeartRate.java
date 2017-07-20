@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear.activity;
+package com.wolkabout.hexiwear.model;
 
 /**
  * Heart rate container class to be used with Firebase

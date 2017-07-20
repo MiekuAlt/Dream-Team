@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear.activity;
+package com.wolkabout.hexiwear.service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.wolkabout.hexiwear.model.Coordinates;
 
 import java.util.ArrayList;
 

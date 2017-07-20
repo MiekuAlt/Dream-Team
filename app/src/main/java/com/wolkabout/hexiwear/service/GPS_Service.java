@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear.activity;
+package com.wolkabout.hexiwear.service;
 
 import android.app.Service;
 import android.content.Context;
