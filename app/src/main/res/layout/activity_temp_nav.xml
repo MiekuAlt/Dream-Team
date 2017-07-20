@@ -75,14 +75,14 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/uploadGPS"
+            android:id="@+id/userBut"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_colour_5"
             android:fontFamily="sans-serif-condensed"
-            android:onClick="goGPS"
-            android:text="Upload GPS"
+            android:onClick="goUserLogin"
+            android:text="User Login"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:typeface="monospace" />
@@ -95,14 +95,14 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/userBut"
+            android:id="@+id/uploadGPS"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_colour_7"
             android:fontFamily="sans-serif-condensed"
-            android:onClick="goUserLogin"
-            android:text="User Login"
+            android:onClick="goGPS"
+            android:text="Upload GPS"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:typeface="monospace" />
