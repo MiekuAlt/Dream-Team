@@ -28,6 +28,7 @@ public class ChooseUserActivity extends AppCompatActivity {
 
         // Checking and filling the correct toggles
         checkUserState();
+        setTitle("User Login");
     }
 
     /**

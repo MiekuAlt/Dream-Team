@@ -64,8 +64,8 @@ public class StepCountActivity extends AppCompatActivity {
         graph.setTitle("Historic Step Count");
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Day");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Steps Taken");
-        //hello
 
+        setTitle("Step Count");
     }
 
     @Override

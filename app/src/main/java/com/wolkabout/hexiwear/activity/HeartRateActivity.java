@@ -82,6 +82,7 @@ public class HeartRateActivity extends AppCompatActivity {
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Day");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Heart rate");
 
+        setTitle("Heart Rate");
     }
 
     @Override
