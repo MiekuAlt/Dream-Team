@@ -28,7 +28,11 @@
     <color name="screen_background">#dcdcdc</color>
     <color name="graph_background">#f0f0f0</color>
     <color name="red_dark">#6d0000</color>
+
     <color name="HK_Bow_Color">#ec174f</color>
+    <color name="HK_Bow_Color_Light">#e84f77</color>
+    <color name="HK_Bow_Color_Dark">#EB0743</color>
+
     <color name="HK_Color_1">#FF0080</color>
     <color name="HK_Color_2">#efecbd</color>
     <color name="HK_Color_3">#9f1f41</color>
