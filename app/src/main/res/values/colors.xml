@@ -29,7 +29,7 @@
     <color name="graph_background">#f0f0f0</color>
     <color name="red_dark">#6d0000</color>
 
-    <color name="HK_Bow_Color">#CC2421</color>
+    <color name="HK_Bow_Color">#cc2421</color>
     <color name="HK_Bow_Color_Light">#FF7876</color>
     <color name="HK_Bow_Color_Dark">#FF2D2A</color>
 
@@ -53,11 +53,13 @@
     <color name="HK_Chat_Light">#8D7FFF</color>
     <color name="HK_Chat_Dark">#4932FF</color>
 
-
-
     <color name="HK_Login">#8207CC</color>
     <color name="HK_Login_Light">#BF55FF</color>
     <color name="HK_Login_Dark">#A208FF</color>
+
+    <color name="HK_Trak">#2196F3</color>
+    <color name="HK_Trak_Light">#BBDEFB</color>
+    <color name="HK_Trak_Dark">#1A99FF</color>
 
     <color name="HK_Color_1">#FF0080</color>
     <color name="HK_Color_2">#efecbd</color>
