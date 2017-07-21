@@ -13,11 +13,8 @@
                         />
                     <corners android:topLeftRadius="0dp" android:topRightRadius="15dp" android:bottomLeftRadius="0dp" android:bottomRightRadius="15dp" />
                     <stroke android:width="1px" android:color="#000000" />
-
-
                 </shape>
             </item>
-
 
             <item android:top="1dp" android:bottom="22dp" >
                 <shape android:shape="rectangle">
@@ -42,8 +39,6 @@
 
                 </shape>
             </item>
-
-
             <item android:top="1dp" android:bottom="22dp">
                 <shape android:shape="rectangle">
                     <solid android:color="#20ffffff"/>
@@ -51,6 +46,4 @@
             </item>
         </layer-list>
     </item>
-
-
 </selector>
