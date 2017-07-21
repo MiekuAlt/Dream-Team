@@ -28,10 +28,8 @@
 
 
     <LinearLayout
-        android:id="@+id/left_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <Button
@@ -48,89 +46,13 @@
             android:typeface="monospace" />
         <!-- android:background="@color/HK_Bow_Color" -->
 
-        <View
-            android:id="@+id/filler2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/chatButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_colour_3"
-            android:fontFamily="sans-serif-condensed"
-            android:onClick="goChat"
-            android:text="@string/chat"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:typeface="monospace" />
-
-        <View
-            android:id="@+id/filler4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/userBut"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_colour_5"
-            android:fontFamily="sans-serif-condensed"
-            android:onClick="goUserLogin"
-            android:text="User Login"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:typeface="monospace" />
-
-        <View
-            android:id="@+id/filler6"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:visibility="invisible" />
-
-        <Button
-            android:id="@+id/uploadGPS"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_colour_7"
-            android:fontFamily="sans-serif-condensed"
-            android:onClick="goGPS"
-            android:text="Upload GPS"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:typeface="monospace" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/right_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <View
-            android:id="@+id/filler1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:visibility="invisible" />
-
         <Button
             android:id="@+id/heartRateBut"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/stepCountBut"
+            android:layout_weight="1"
             android:background="@drawable/button_colour_2"
             android:fontFamily="sans-serif-condensed"
             android:onClick="goHeartRate"
@@ -138,13 +60,6 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:typeface="monospace" />
-
-        <View
-            android:id="@+id/filler3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:visibility="invisible" />
 
         <Button
             android:id="@+id/mapBut"
@@ -160,7 +75,50 @@
             android:typeface="monospace" />
 
         <View
+            android:id="@+id/filler2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <View
+            android:id="@+id/filler4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <View
+            android:id="@+id/filler6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+
+        <View
+            android:id="@+id/filler1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <View
+            android:id="@+id/filler3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <View
             android:id="@+id/filler5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <View
+            android:id="@+id/filler7"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -179,13 +137,44 @@
             android:textStyle="bold"
             android:typeface="monospace" />
 
-        <View
-            android:id="@+id/filler7"
+        <Button
+            android:id="@+id/uploadGPS"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:visibility="invisible" />
+            android:background="@drawable/button_colour_7"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goGPS"
+            android:text="Upload GPS"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <Button
+            android:id="@+id/chatButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_colour_3"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goChat"
+            android:text="@string/chat"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <Button
+            android:id="@+id/userBut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_colour_5"
+            android:fontFamily="sans-serif-condensed"
+            android:onClick="goUserLogin"
+            android:text="User Login"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
     </LinearLayout>
-
 </LinearLayout>
