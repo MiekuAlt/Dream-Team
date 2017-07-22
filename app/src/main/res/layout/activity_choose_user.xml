@@ -4,29 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/chooser_user_background"
     tools:context="com.wolkabout.hexiwear.activity.ChooseUserActivity">
 
     <TextView
         android:id="@+id/textUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="72dp"
+        android:fontFamily="sans-serif-condensed"
         android:text="Are you the Coach or Athlete?"
         android:textAlignment="center"
+        android:textAllCaps="true"
         android:textSize="24sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.553" />
 
     <Button
         android:id="@+id/buttonUserSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_enter"
+        android:fontFamily="sans-serif-condensed"
         android:onClick="updateUserType"
         android:text="Update"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:typeface="monospace"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <RadioGroup
@@ -45,7 +56,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-condensed"
             android:text="Coach"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:typeface="monospace"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -56,7 +71,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-condensed"
             android:text="Athlete"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:typeface="monospace"
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -65,13 +84,19 @@
 
     <Button
         android:id="@+id/buttonClear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="188dp"
+        android:layout_height="49dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/button_enter"
+        android:fontFamily="sans-serif-condensed"
         android:onClick="clearSharedPreferences"
         android:text="Clear SharedPreferences"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:typeface="monospace"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonUserSubmit" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonUserSubmit"
+        app:layout_constraintHorizontal_bias="0.502" />
 
 </android.support.constraint.ConstraintLayout>
