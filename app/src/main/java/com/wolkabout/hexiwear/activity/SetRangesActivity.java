@@ -32,6 +32,8 @@ public class SetRangesActivity extends AppCompatActivity {
         // Initializing the database
         databaseMinHeartRange = FirebaseDatabase.getInstance().getReference("MinHeartRange");
         databaseMaxHeartRange = FirebaseDatabase.getInstance().getReference("MaxHeartRange");
+
+        setTitle("Set Range");
     }
 
     public void changeHeart(View view){

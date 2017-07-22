@@ -47,7 +47,7 @@
     <string name="registration_error_email_already_exists">Account with provided email address already exists.</string>
 
     <!--MAIN ACTIVITY-->
-    <string name="discovery_available_devices">Available devices</string>
+    <string name="discovery_available_devices">Welcome to Trak</string>
     <string name="discovery_scanning">Scanning…</string>
     <string name="discovery_pairing">Pairing device. Please wait…</string>
     <string name="discovery_otap">OTAP</string>

@@ -73,6 +73,7 @@ public class TrackingActivity extends AppCompatActivity {
                 }
             }
         });
+        setTitle("Upload GPS");
     }
 
     /**

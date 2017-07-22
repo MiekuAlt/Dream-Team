@@ -64,6 +64,7 @@ public class ChatFragment extends Fragment {
         setHasOptionsMenu(true);
 
         mMessageDatabase = FirebaseDatabase.getInstance().getReference("messages");
+        getActivity().setTitle("Chat");
     }
 
     @Override
