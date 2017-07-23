@@ -10,16 +10,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.wolkabout.hexiwear.activity.HeartRate;
 import com.wolkabout.hexiwear.activity.MinHeartRange;
 import com.wolkabout.hexiwear.activity.MaxHeartRange;
 import com.wolkabout.hexiwear.activity.HistoricHeartRate;
-import com.wolkabout.hexiwear.activity.HeartRate;
-import java.util.Calendar;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
@@ -41,6 +40,7 @@ public class HeartRateActivity extends AppCompatActivity {
     DatabaseReference databaseHistoricHeartRate;
     private LineGraphSeries<DataPoint> historicHeart;
     private int i, maxRate;
+    private ArrayList<String> xAxisDay=new ArrayList<String>();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
     private String date = dateFormat.format(new Date());
 
@@ -66,12 +66,13 @@ public class HeartRateActivity extends AppCompatActivity {
         viewport.setXAxisBoundsManual(true);
 
         viewport.setMinX(0);
-        viewport.setMaxX(6);
+        viewport.setMaxX(7);
         viewport.setMinY(0);
         viewport.setMaxY(200);
         graph.setTitle("Historic Max Heart Rate");
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Date");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Heart rate");
+        viewport.setScrollable(true);
 
     }
 
@@ -91,8 +92,10 @@ public class HeartRateActivity extends AppCompatActivity {
                 String output = heartRate.getHeartRate();
                 textView.setText(output);
 
-                //Gets the current heart rate from the watch and if it is higher than maxRate it changes it
-                //to the current rate
+                /**
+                 * Gets the current heart rate from the watch and if it is higher than maxRate it changes it
+                 * to the current rate
+                 */
                 String heartNum[]=output.split(" ");
                 int rate=Integer.parseInt(heartNum[0]);
                 if(rate > maxRate){
@@ -105,7 +108,9 @@ public class HeartRateActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-        //Listens for chages in the minimum heart range
+        /**
+         * Listens for chages in the minimum heart range
+         */
         databaseMinHeartRange.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -124,7 +129,9 @@ public class HeartRateActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-        //Listens for chages in the maximum heart range
+        /**
+         * Listens for chages in the maximum heart range
+         */
         databaseMaxHeartRange.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -145,7 +152,9 @@ public class HeartRateActivity extends AppCompatActivity {
             }
         });
 
-        //Gets the current days max heart rate from the database and sets the maxRate to the current days maximum rate
+        /**
+         * Gets the current days max heart rate from the database and sets the maxRate to the current days maximum rate
+         */
         databaseHistoricHeartRate.child(date).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -161,7 +170,9 @@ public class HeartRateActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-        //Gets all of the historical data from the database and graphs it using addEntry
+        /**
+         * Gets all of the historical data from the database and graphs it using addEntry
+         */
         databaseHistoricHeartRate.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -169,9 +180,27 @@ public class HeartRateActivity extends AppCompatActivity {
                 for (DataSnapshot valuesSnapshot : dataSnapshot.getChildren()) {
                     //The key is the date
                     String d=valuesSnapshot.getKey();
+
+                    GraphView graph = (GraphView) findViewById(R.id.graph);
+                    //adds the date to the date array
+                    xAxisDay.add(d);
+
                     //the value is the max heart rate on a given day
                     int point = valuesSnapshot.getValue(int.class);
-                    addEntry(d, point);
+                    addEntry(point);
+                    //Sets the x axis labels to be the dates (key)
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                // show x values as dates
+                                return xAxisDay.get((int)value);
+                            } else {
+                                // normal Y values
+                                return super.formatLabel(value, isValueX);
+                            }
+                        }
+                    });
                 }
             }
 
@@ -181,13 +210,18 @@ public class HeartRateActivity extends AppCompatActivity {
             }
         });
     }
-    //Plots the data to the graph
-    private void addEntry(String d, int p) {
+
+    /**
+     * Plots the data to the graph
+     */
+    private void addEntry(int p) {
         // here, we choose to display max 100 points on the viewport and we scroll to end
         historicHeart.appendData(new DataPoint(i++, p), true, 100);
     }
 
-    //Launches Whenever the activity is stopped
+    /**
+     * Launches Whenever the activity is stopped
+     */
     public void onStop()
     {
         super.onStop();
