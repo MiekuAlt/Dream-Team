@@ -17,6 +17,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jjoe64.graphview.DefaultLabelFormatter;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
@@ -28,14 +33,11 @@ import com.wolkabout.hexiwear.model.MaxHeartRange;
 import com.wolkabout.hexiwear.model.MinHeartRange;
 import com.wolkabout.hexiwear.service.BluetoothService;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 
 /**
- * Displays the athlete's current heart rate, provided by Firebase, also has access to the Min and Max
- * ranges for the athlete's heart rate as set by the coach
+ * Displays the athlete's current heart rate and historical data, provided by Firebase, also has access to
+ * the Min and Max ranges for the athlete's heart rate as set by the coach
  *
  * @author Michael Altair
  * @author Sitanun Changhor (Dream)
@@ -105,10 +107,9 @@ public class HeartRateActivity extends AppCompatActivity {
                 String output = heartRate.getHeartRate();
                 textView.setText(output);
 
-                /**
-                 * Gets the current heart rate from the watch and if it is higher than maxRate it changes it
-                 * to the current rate
-                 */
+
+                //Gets the current heart rate from the watch and if it is higher than maxRate it changes it
+                //to the current rate
                 String heartNum[]=output.split(" ");
                 int rate=Integer.parseInt(heartNum[0]);
                 if(rate > maxRate){
@@ -135,6 +136,7 @@ public class HeartRateActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
         /**
          * Listens for chages in the minimum heart range
          */
@@ -158,6 +160,7 @@ public class HeartRateActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
         /**
          * Listens for chages in the maximum heart range
          */
@@ -201,6 +204,7 @@ public class HeartRateActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
+
         /**
          * Gets all of the historical data from the database and graphs it using addEntry
          */
@@ -244,6 +248,7 @@ public class HeartRateActivity extends AppCompatActivity {
 
     /**
      * Plots the data to the graph
+     * @param p an integer that represents the maximum heart rate to be placed on the graph
      */
     private void addEntry(int p) {
         // here, we choose to display max 100 points on the viewport and we scroll to end

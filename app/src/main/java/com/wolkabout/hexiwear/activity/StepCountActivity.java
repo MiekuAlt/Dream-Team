@@ -21,11 +21,14 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.model.StepCount;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 
-
+/**
+ * Displays the athlete's current Step Count and historical data, provided by Firebase, also has access to
+ * the average amount of steps over the past week
+ *
+ * @author Evan Cruz
+ */
 public class StepCountActivity extends AppCompatActivity {
 
     DatabaseReference databaseStepCount;
@@ -61,7 +64,10 @@ public class StepCountActivity extends AppCompatActivity {
         viewport.setMaxX(7);
         viewport.setMinY(0);
 
-        viewport.setMaxY(15000);
+        viewport.setYAxisBoundsManual(true);
+        viewport.setXAxisBoundsManual(true);
+        //test changes
+        viewport.setMaxY(16000);
         viewport.setYAxisBoundsManual(true);
         viewport.setXAxisBoundsManual(true);
         graph.setTitle("Historic Step Count");
@@ -81,16 +87,12 @@ public class StepCountActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                /*
-
-                Grabbing the data from Firebase
-                 */
+                //Grabbing the data from Firebase
                 dataSnapshot.getChildren();
                 StepCount stepCount = dataSnapshot.getValue(StepCount.class);
 
-                /*
-                 * Posting the data to appear on the GUI
-                 */
+
+                //Posting the data to appear on the GUI
                 TextView textView = (TextView) findViewById(R.id.numStepsDisp);
                 String output = stepCount.getStepCount();
                 textView.setText(output);
@@ -111,7 +113,6 @@ public class StepCountActivity extends AppCompatActivity {
         /**
          * Gets all of the historical data from the database and graphs it using addEntry
          */
-
         databaseHistoricStepCount.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,12 +126,10 @@ public class StepCountActivity extends AppCompatActivity {
                     //adds the date to the date array
                     xAxisDay.add(d);
 
-
-                    /**
-                     * Creates an array that stores the past 7 days of data
-                     * if the count reaches 7 (7 days) it resets the counter and the earliest entry
-                     * will be removed so the past 7 days will always be represented
-                     */
+                    
+                     //Creates an array that stores the past 7 days of data
+                     //if the count reaches 7 (7 days) it resets the counter and the earliest entry
+                     //will be removed so the past 7 days will always be represented
                     if(weekCounter!=7)
                     {
                         weekAvg[weekCounter]=point;
@@ -170,6 +169,7 @@ public class StepCountActivity extends AppCompatActivity {
 
     /**
      * Plots the data to the graph
+     * @param p an integer that represents the step count amount to be placed on the graph
      */
     private void addEntry(int p) {
         // Display max 100 points on the viewport
@@ -178,6 +178,8 @@ public class StepCountActivity extends AppCompatActivity {
 
     /**
      * A method to calculate the average number of steps taken in the past 7 days
+     * @param weekAvg, an array containing 7 items
+     * @return the average of the array
      */
     public double stepAvgWeek(double weekAvg[]){
         int count=0;
