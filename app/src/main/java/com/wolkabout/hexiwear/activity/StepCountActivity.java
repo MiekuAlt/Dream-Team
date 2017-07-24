@@ -10,21 +10,30 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/StepCountActivity.java
+=======
+import com.wolkabout.hexiwear.activity.StepCount;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+>>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/StepCountActivity.java
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/StepCountActivity.java
 import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.model.StepCount;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+=======
+import com.jjoe64.graphview.DefaultLabelFormatter;
 
-/**
- * Displays the athlete's current step count, provided by Firebase
- *
- * @author Michael Altair
- */
+>>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/StepCountActivity.java
+
 public class StepCountActivity extends AppCompatActivity {
 
     DatabaseReference databaseStepCount;
@@ -33,6 +42,7 @@ public class StepCountActivity extends AppCompatActivity {
     private int i, steps;
     private int weekCounter;
     private double weekAvg[]=new double[7];
+    private ArrayList<String> xAxisDay=new ArrayList<String>();
     private SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
     private String date = dateFormat.format(new Date());
 
@@ -48,22 +58,34 @@ public class StepCountActivity extends AppCompatActivity {
         //Creates the viewport of a line graph outlining the max heart rate each day over a 7 day period
         GraphView graph = (GraphView) findViewById(R.id.graph);
         historicStep = new LineGraphSeries<DataPoint>();
+
         graph.addSeries(historicStep);
         historicStep.setDrawDataPoints(true);
         historicStep.setDataPointsRadius(10);
         historicStep.setDrawBackground(true);
         historicStep.setBackgroundColor(Color.parseColor("#8087CEEB"));
         Viewport viewport = graph.getViewport();
+<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/StepCountActivity.java
         viewport.setYAxisBoundsManual(true);
         viewport.setXAxisBoundsManual(true);
         //test changes
+=======
+>>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/StepCountActivity.java
         viewport.setMinX(0);
-        viewport.setMaxX(6);
+        viewport.setMaxX(7);
         viewport.setMinY(0);
+<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/StepCountActivity.java
         viewport.setMaxY(16000);
+=======
+        viewport.setMaxY(15000);
+        viewport.setYAxisBoundsManual(true);
+        viewport.setXAxisBoundsManual(true);
+>>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/StepCountActivity.java
         graph.setTitle("Historic Step Count");
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Day");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Steps Taken");
+        viewport.setScrollable(true);
+
 
         setTitle("Step Count");
     }
@@ -76,11 +98,16 @@ public class StepCountActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                // Grabbing the data from Firebase
+                /**
+
+                Grabbing the data from Firebase
+                 */
                 dataSnapshot.getChildren();
                 StepCount stepCount = dataSnapshot.getValue(StepCount.class);
 
-                // Posting the data to appear on the GUI
+                /**
+                 * Posting the data to appear on the GUI
+                 */
                 TextView textView = (TextView) findViewById(R.id.numStepsDisp);
                 String output = stepCount.getStepCount();
                 textView.setText(output);
@@ -97,7 +124,11 @@ public class StepCountActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + databaseError.getCode());
             }
         });
-        //Gets all of the historical data from the database and graphs it using addEntry
+
+        /**
+         * Gets all of the historical data from the database and graphs it using addEntry
+         */
+
         databaseHistoricStepCount.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -107,14 +138,34 @@ public class StepCountActivity extends AppCompatActivity {
                     String d=valuesSnapshot.getKey();
                     //the value is the max Step Count on a given day
                     int point = valuesSnapshot.getValue(int.class);
-                    addEntry(d, point);
+                    GraphView graph = (GraphView) findViewById(R.id.graph);
+                    //adds the date to the date array
+                    xAxisDay.add(d);
 
-                    // Creates an array that stores the past 7 days of data
-                    // if the count reaches 6 (7 days) it resets the counter and the earliest entry
-                    // will be removed so the past 7 days will always be represented
-                    if(weekCounter!=6)
+
+                    /**
+                     * Creates an array that stores the past 7 days of data
+                     * if the count reaches 7 (7 days) it resets the counter and the earliest entry
+                     * will be removed so the past 7 days will always be represented
+                     */
+                    if(weekCounter!=7)
                     {
                         weekAvg[weekCounter]=point;
+
+                        //Sets the x axis labels to be the dates (key)
+                        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                            @Override
+                            public String formatLabel(double value, boolean isValueX) {
+                                if (isValueX) {
+                                    // show x values as dates
+                                    return xAxisDay.get((int)value);
+                                } else {
+                                    // normal Y values
+                                    return super.formatLabel(value, isValueX);
+                                }
+                            }
+                        });
+                        addEntry(point);
                         weekCounter++;
                     }
                     else
@@ -133,14 +184,18 @@ public class StepCountActivity extends AppCompatActivity {
             }
         });
     }
-    //Plots the data to the graph
-    //d is not currently used but passes the date
-    private void addEntry(String d, int p) {
+
+    /**
+     * Plots the data to the graph
+     */
+    private void addEntry(int p) {
         // Display max 100 points on the viewport
         historicStep.appendData(new DataPoint(i++, p), true, 100);
     }
 
-    //A method to calculate the average number of steps taken in the past 7 days
+    /**
+     * A method to calculate the average number of steps taken in the past 7 days
+     */
     public double stepAvgWeek(double weekAvg[]){
         int count=0;
         double total=0;
@@ -154,7 +209,10 @@ public class StepCountActivity extends AppCompatActivity {
         return total;
     }
 
-    //Launches Whenever the activity is stopped
+    /**
+     * Launches Whenever the activity is stopped
+     * Adds the daily step count to the FireBase database
+     */
     public void onStop()
     {
         super.onStop();
