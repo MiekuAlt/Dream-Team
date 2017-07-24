@@ -92,23 +92,22 @@
         <activity android:name=".activity.TrackingActivity" />
         <activity android:name=".activity.ChooseUserActivity" />
         <activity android:name=".activity.SetRangesActivity" />
-        <activity android:name=".Notification" />
 
         <service
             android:name=".service.UploadGPS_Service"
             android:enabled="true"
             android:exported="true"
-            android:stopWithTask="true" />
+             />
         <service
             android:name=".service.GPS_Service"
             android:enabled="true"
             android:exported="true"
-            android:stopWithTask="true" />
+             />
         <service
             android:name=".service.GetCoordinates_Service"
             android:enabled="true"
             android:exported="true"
-            android:stopWithTask="true"></service>
+            ></service>
     </application>
 
 </manifest>
