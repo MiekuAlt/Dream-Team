@@ -16,19 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/HeartRateActivity.java
-=======
 import com.jjoe64.graphview.DefaultLabelFormatter;
-import com.wolkabout.hexiwear.activity.HeartRate;
-import com.wolkabout.hexiwear.activity.MinHeartRange;
-import com.wolkabout.hexiwear.activity.MaxHeartRange;
-import com.wolkabout.hexiwear.activity.HistoricHeartRate;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
->>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/HeartRateActivity.java
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
@@ -41,6 +29,7 @@ import com.wolkabout.hexiwear.model.MinHeartRange;
 import com.wolkabout.hexiwear.service.BluetoothService;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -58,11 +47,8 @@ public class HeartRateActivity extends AppCompatActivity {
     DatabaseReference databaseHistoricHeartRate;
     private LineGraphSeries<DataPoint> historicHeart;
     private int i, maxRate;
-<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/HeartRateActivity.java
     private long maxHeartRate, minHeartRate;
-=======
     private ArrayList<String> xAxisDay=new ArrayList<String>();
->>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/HeartRateActivity.java
     private SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
     private String date = dateFormat.format(new Date());
 

@@ -10,29 +10,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/StepCountActivity.java
-=======
-import com.wolkabout.hexiwear.activity.StepCount;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
->>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/StepCountActivity.java
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/StepCountActivity.java
 import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.model.StepCount;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-=======
 import com.jjoe64.graphview.DefaultLabelFormatter;
 
->>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/StepCountActivity.java
 
 public class StepCountActivity extends AppCompatActivity {
 
@@ -65,22 +57,13 @@ public class StepCountActivity extends AppCompatActivity {
         historicStep.setDrawBackground(true);
         historicStep.setBackgroundColor(Color.parseColor("#8087CEEB"));
         Viewport viewport = graph.getViewport();
-<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/StepCountActivity.java
-        viewport.setYAxisBoundsManual(true);
-        viewport.setXAxisBoundsManual(true);
-        //test changes
-=======
->>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/StepCountActivity.java
         viewport.setMinX(0);
         viewport.setMaxX(7);
         viewport.setMinY(0);
-<<<<<<< HEAD:app/src/main/java/com/wolkabout/hexiwear/activity/StepCountActivity.java
-        viewport.setMaxY(16000);
-=======
+
         viewport.setMaxY(15000);
         viewport.setYAxisBoundsManual(true);
         viewport.setXAxisBoundsManual(true);
->>>>>>> UpdatedGraph:app/src/main/java/com/wolkabout/hexiwear/StepCountActivity.java
         graph.setTitle("Historic Step Count");
         graph.getGridLabelRenderer().setHorizontalAxisTitle("Day");
         graph.getGridLabelRenderer().setVerticalAxisTitle("Steps Taken");
@@ -98,14 +81,14 @@ public class StepCountActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                /**
+                /*
 
                 Grabbing the data from Firebase
                  */
                 dataSnapshot.getChildren();
                 StepCount stepCount = dataSnapshot.getValue(StepCount.class);
 
-                /**
+                /*
                  * Posting the data to appear on the GUI
                  */
                 TextView textView = (TextView) findViewById(R.id.numStepsDisp);
