@@ -37,10 +37,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.R;
 import com.wolkabout.hexiwear.adapter.DeviceListAdapter;
 import com.wolkabout.hexiwear.model.BluetoothDeviceWrapper;
+import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.service.BluetoothService;
 import com.wolkabout.hexiwear.service.BluetoothService_;
 import com.wolkabout.hexiwear.service.DeviceDiscoveryService;
@@ -55,13 +55,11 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ItemLongClick;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.Receiver;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-@OptionsMenu(R.menu.menu_main)
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity implements ServiceConnection {
 
