@@ -5,7 +5,7 @@ package com;
  */
 import org.junit.Test;
 import static org.junit.Assert.*;
-import com.wolkabout.hexiwear.StepCountActivity;
+import com.wolkabout.hexiwear.activity.StepCountActivity;
 
 public class HistoricStepCountTest {
     @Test

@@ -19,7 +19,7 @@
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="aqua">#0080FF</color>
+    <color name="aqua">#0080ff</color>
     <color name="honeydew">#CCFF66</color>
     <color name="salmon">#FF6666</color>
     <color name="strawberry">#FF0080</color>
@@ -28,5 +28,43 @@
     <color name="screen_background">#dcdcdc</color>
     <color name="graph_background">#f0f0f0</color>
     <color name="red_dark">#6d0000</color>
+
+    <color name="HK_Bow_Color">#cc2421</color>
+    <color name="HK_Bow_Color_Light">#FF7876</color>
+    <color name="HK_Bow_Color_Dark">#FF2D2A</color>
+
+    <color name="HK_Heart_Rate">#CC5314</color>
+    <color name="HK_Heart_Rate_Light">#FF9A66</color>
+    <color name="HK_Heart_Rate_Dark">#FF6819</color>
+
+    <color name="HK_Map">#CC9A19</color>
+    <color name="HK_Map_Light">#FFD66C</color>
+    <color name="HK_Map_Dark">#FFC01F</color>
+
+    <color name="HK_Set_Range">#2D90CC</color>
+    <color name="HK_Set_Range_Light">#85D1FF</color>
+    <color name="HK_Set_Range_Dark">#39B5FF</color>
+
+    <color name="HK_GPS">#0043CC</color>
+    <color name="HK_GPS_Light">#4C87FF</color>
+    <color name="HK_GPS_Dark">#0053FF</color>
+
+    <color name="HK_Chat">#3A28CC</color>
+    <color name="HK_Chat_Light">#8D7FFF</color>
+    <color name="HK_Chat_Dark">#4932FF</color>
+
+    <color name="HK_Login">#8207CC</color>
+    <color name="HK_Login_Light">#BF55FF</color>
+    <color name="HK_Login_Dark">#A208FF</color>
+
+    <color name="HK_Trak">#2196F3</color>
+    <color name="HK_Trak_Light">#BBDEFB</color>
+    <color name="HK_Trak_Dark">#1A99FF</color>
+
+    <color name="HK_Color_1">#FF0080</color>
+    <color name="HK_Color_2">#efecbd</color>
+    <color name="HK_Color_3">#9f1f41</color>
+    <color name="HK_Color_4">#2594b9</color>
+    <color name="HK_Color_5">#087a9f</color>
 
 </resources>

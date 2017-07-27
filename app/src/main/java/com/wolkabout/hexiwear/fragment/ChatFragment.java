@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package com.wolkabout.hexiwear;
+package com.wolkabout.hexiwear.fragment;
+
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,6 +34,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.wolkabout.hexiwear.R;
+import com.wolkabout.hexiwear.model.Globals;
 import com.wolkabout.hexiwear.service.BluetoothService;
 
 
@@ -56,6 +59,7 @@ public class ChatFragment extends Fragment {
         setHasOptionsMenu(true);
 
         mMessageDatabase = FirebaseDatabase.getInstance().getReference("messages");
+        getActivity().setTitle("Chat");
     }
 
     @Override
@@ -78,7 +82,7 @@ public class ChatFragment extends Fragment {
 
                 if(!Globals.isCoach()) {
                     BluetoothService bs = new BluetoothService();
-                    bs.vibrateWatch(10);
+                    bs.vibrateWatch(2);
                 }
 
             }
@@ -157,13 +161,18 @@ public class ChatFragment extends Fragment {
             String id = mMessageDatabase.push().getKey();
             if(Globals.isCoach()) {
                 mMessageDatabase.child(id).setValue("Coach:  " + msg);
+
+
             } else {
                 mMessageDatabase.child(id).setValue("Athlete: " + msg);
+
             }
             mToSendEditText.setText("");
 
         }
     }
+
+
 
     /**
      * Record the number of messages
@@ -179,6 +188,8 @@ public class ChatFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
     }
+
+
 
 
 }

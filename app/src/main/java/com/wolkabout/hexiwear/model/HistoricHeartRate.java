@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear.activity;
+package com.wolkabout.hexiwear.model;
 
 /**
  * Created by Evan on 2017-06-30.

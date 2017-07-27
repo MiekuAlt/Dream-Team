@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear.activity;
+package com.wolkabout.hexiwear.model;
 
 /**
  * Step count container to be used with Firebase

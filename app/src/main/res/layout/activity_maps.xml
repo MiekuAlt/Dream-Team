@@ -1,8 +1,66 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wolkabout.hexiwear.activity.MapsActivity" />
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.wolkabout.hexiwear.activity.MapsActivity">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        tools:context="com.wolkabout.hexiwear.activity.MapsActivity" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button_make"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="8dp"
+            android:onClick="makeRoute"
+            android:text="Make"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintRight_toRightOf="parent"
+            map:layout_constraintTop_toTopOf="parent"
+            map:layout_constraintVertical_bias="0.333" />
+
+        <Button
+            android:id="@+id/button_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="112dp"
+            android:layout_marginTop="8dp"
+            android:onClick="clearMap"
+            android:text="Clear"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintHorizontal_bias="1.0"
+            map:layout_constraintLeft_toLeftOf="parent"
+            map:layout_constraintRight_toLeftOf="@+id/button_make"
+            map:layout_constraintTop_toTopOf="parent"
+            map:layout_constraintVertical_bias="0.333" />
+
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:onClick="sendRoute"
+            android:text="Send"
+            android:visibility="invisible"
+            map:layout_constraintBaseline_toBaselineOf="@+id/button_make"
+            map:layout_constraintLeft_toRightOf="@+id/button_clear"
+            map:layout_constraintRight_toLeftOf="@+id/button_make" />
+    </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

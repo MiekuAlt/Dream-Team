@@ -1,12 +1,14 @@
-package com.wolkabout.hexiwear.activity;
+package com.wolkabout.hexiwear.model;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import java.io.Serializable;
 
 /**
  * Class used to receive objects form Firebase and convert them to LngLat Objects to be used in
  * Google Maps API
  */
-public class Coordinates {
+public class Coordinates implements Serializable{
     private String longitude, latitude, altitude;
 
     public Coordinates(){}

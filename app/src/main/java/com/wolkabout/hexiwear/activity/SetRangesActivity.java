@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear;
+package com.wolkabout.hexiwear.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +9,18 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.wolkabout.hexiwear.R;
 
 import static com.wolkabout.hexiwear.R.layout.activity_set_range;
 
 
 /**
- * Created by Evan on 2017-06-13.
+ * Sets the heart rate range on Firebase based on the user's inputs
+ * @author Evan Cruz
+ * @author Sitanun Changhor (Dream)
  */
 
-public class SetRanges extends AppCompatActivity {
+public class SetRangesActivity extends AppCompatActivity {
     DatabaseReference databaseMinHeartRange;
     DatabaseReference databaseMaxHeartRange;
 
@@ -29,6 +32,8 @@ public class SetRanges extends AppCompatActivity {
         // Initializing the database
         databaseMinHeartRange = FirebaseDatabase.getInstance().getReference("MinHeartRange");
         databaseMaxHeartRange = FirebaseDatabase.getInstance().getReference("MaxHeartRange");
+
+        setTitle("Set Range");
     }
 
     public void changeHeart(View view){
@@ -71,4 +76,3 @@ public class SetRanges extends AppCompatActivity {
         }
     }
 }
-

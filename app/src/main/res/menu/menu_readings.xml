@@ -4,16 +4,12 @@
 
     <item
         android:id="@+id/toggleTracking"
+        android:checkable="false"
         android:icon="@drawable/ic_cloud_off_white_48dp"
         android:orderInCategory="3"
         android:title="@string/readings_option_toggle_tracking"
+        android:visible="false"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/openSettings"
-        android:orderInCategory="100"
-        android:title="@string/readings_option_settings"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/setTime"

@@ -1,4 +1,4 @@
-package com.wolkabout.hexiwear.activity;
+package com.wolkabout.hexiwear.service;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.wolkabout.hexiwear.model.Coordinates;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,7 @@ public class UploadGPS_Service extends Service {
         Intent i =new Intent(getApplicationContext(),GPS_Service.class);
         startService(i);
         Log.i(TAG, "service Started");
+        //register broadcast receiver to receive GPS data from GPS_Service
         if(broadcastReceiver == null){
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
